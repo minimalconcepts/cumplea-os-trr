@@ -21,12 +21,27 @@ body{
     overflow:hidden;
 }
 
+/* Fondo animado */
 @keyframes fondoAnimado{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
 }
 
+/* Corazones flotando */
+.heart{
+    position:absolute;
+    font-size:20px;
+    opacity:0.6;
+    animation: float 8s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+/* Contenedor */
 .container{
     position:relative;
     width:90%;
@@ -35,7 +50,7 @@ body{
     cursor:pointer;
 }
 
-/* CARTA */
+/* Carta base */
 .card{
     position:absolute;
     width:100%;
@@ -44,44 +59,42 @@ body{
     border-radius:30px;
     box-shadow:0 30px 60px rgba(0,0,0,0.3);
     overflow:hidden;
+}
+
+/* Texto Ábreme */
+.open-text{
+    position:absolute;
+    width:100%;
+    height:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-}
-
-/* TEXTO ABREME */
-.open-text{
-    position:absolute;
     font-family:'Great Vibes', cursive;
-    font-size:40px;
+    font-size:42px;
     color:white;
-    transition:opacity 0.5s;
+    transition:opacity 0.4s;
+    z-index:5;
 }
 
-.open .open-text{
-    opacity:0;
-}
-
-/* PARTES */
-.top{
+/* Partes */
+.top, .bottom{
     position:absolute;
     width:100%;
     height:50%;
     background:#ff6f91;
-    clip-path: polygon(0 0,100% 0,100% 100%,0 85%);
     transition:1s ease;
+}
+
+.top{
+    top:0;
+    clip-path: polygon(0 0,100% 0,100% 100%,0 85%);
 }
 
 .bottom{
-    position:absolute;
     bottom:0;
-    width:100%;
-    height:50%;
-    background:#ff6f91;
-    transition:1s ease;
 }
 
-/* HOJA */
+/* Hoja interior */
 .paper{
     position:absolute;
     top:5%;
@@ -99,25 +112,29 @@ body{
     line-height:1.6;
     opacity:0;
     transform:scale(0.8);
-    transition:1s ease;
+    transition:0.8s ease;
     box-shadow:0 0 30px #ff4d79;
 }
 
-/* ABRIR */
-.open .top{
+/* Estado abierto */
+.container.open .top{
     transform:translateY(-120%) rotate(-8deg);
 }
 
-.open .bottom{
+.container.open .bottom{
     transform:translateY(120%) rotate(8deg);
 }
 
-.open .paper{
+.container.open .paper{
     opacity:1;
     transform:scale(1);
 }
 
-/* NOMBRE */
+.container.open .open-text{
+    opacity:0;
+}
+
+/* Nombre */
 .nombre{
     font-size:48px;
     display:block;
@@ -125,7 +142,7 @@ body{
     opacity:0;
 }
 
-.open .nombre{
+.container.open .nombre{
     animation:nombreAnim 1.5s forwards 0.8s,
              glow 2s infinite alternate 2.5s;
 }
@@ -150,6 +167,12 @@ body{
 
 <body>
 
+<!-- Corazones -->
+<div class="heart" style="left:10%;">💖</div>
+<div class="heart" style="left:25%; animation-delay:2s;">💗</div>
+<div class="heart" style="left:50%; animation-delay:4s;">💕</div>
+<div class="heart" style="left:75%; animation-delay:1s;">💞</div>
+
 <div class="container" onclick="toggleCard(this)">
     <div class="card">
 
@@ -158,7 +181,7 @@ body{
         <div class="top"></div>
         <div class="bottom"></div>
 
-        <div class="paper" id="paper">
+        <div class="paper">
             Feliz cumpleaños 🎂<br>
             <span class="nombre">Tarrio 💖</span>
             Que cada año que pase brille más que el anterior ✨<br><br>
@@ -170,23 +193,25 @@ body{
 </div>
 
 <script>
-let abierto = false;
+let abierta = false;
 
 function toggleCard(el){
-    const paper = document.getElementById("paper");
 
-    if(!abierto){
+    if(!abierta){
         el.classList.add("open");
-        abierto = true;
+        abierta = true;
     }else{
-        // primero desvanece la hoja
+        const paper = el.querySelector(".paper");
+
+        // primero desvanece hoja
         paper.style.opacity = "0";
         paper.style.transform = "scale(0.8)";
 
         setTimeout(()=>{
             el.classList.remove("open");
-            abierto = false;
-        },600);
+            paper.removeAttribute("style"); // reinicia correctamente
+            abierta = false;
+        },700);
     }
 }
 </script>

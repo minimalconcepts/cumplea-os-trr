@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feliz Cumpleaños Tarrio 💚</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -21,11 +21,11 @@ background:#020f0d;
 display:flex;
 justify-content:center;
 align-items:center;
-font-family:'Segoe UI',sans-serif;
+font-family:'Quicksand', sans-serif;
 color:white;
 }
 
-/* 🎬 ENTRADA CINE */
+/* 🎬 Fade cine */
 .overlay{
 position:fixed;
 width:100%;
@@ -36,11 +36,10 @@ animation:fadeOut 3s forwards;
 }
 
 @keyframes fadeOut{
-0%{opacity:1;}
-100%{opacity:0;visibility:hidden;}
+to{opacity:0;visibility:hidden;}
 }
 
-/* 🌌 FONDO MULTICAPA */
+/* 🌌 Fondo */
 .fondo{
 position:absolute;
 width:100%;
@@ -49,6 +48,7 @@ overflow:hidden;
 z-index:-3;
 }
 
+/* Capas galaxia */
 .capa{
 position:absolute;
 width:120%;
@@ -74,6 +74,21 @@ animation:mover2 60s linear infinite alternate;
 background:radial-gradient(circle at center,#063b2c,#021a16);
 }
 
+/* 🌫 Neblina cósmica */
+.neblina{
+position:absolute;
+width:150%;
+height:150%;
+background:radial-gradient(circle at 50% 50%, rgba(0,255,200,0.08), transparent 60%);
+animation:neblinaMover 30s ease-in-out infinite alternate;
+pointer-events:none;
+}
+
+@keyframes neblinaMover{
+from{transform:translate(-5%, -5%) scale(1);}
+to{transform:translate(5%, 5%) scale(1.1);}
+}
+
 @keyframes mover1{
 from{transform:translate(0,0);}
 to{transform:translate(-50px,-30px);}
@@ -84,7 +99,7 @@ from{transform:translate(0,0);}
 to{transform:translate(50px,30px);}
 }
 
-/* ✨ PARTICULAS */
+/* ✨ Partículas */
 .particula{
 position:absolute;
 width:3px;
@@ -100,7 +115,7 @@ animation:flotar 10s linear infinite;
 100%{transform:translateY(-10vh);}
 }
 
-/* ⭐ ESTRELLAS FUGACES */
+/* ⭐ Estrella fugaz */
 .estrella{
 position:absolute;
 width:3px;
@@ -112,17 +127,11 @@ animation:fugaz 1.5s ease-out forwards;
 }
 
 @keyframes fugaz{
-0%{
-opacity:1;
-transform:translate(0,0);
-}
-100%{
-opacity:0;
-transform:translate(600px,200px);
-}
+0%{opacity:1; transform:translate(0,0);}
+100%{opacity:0; transform:translate(600px,200px);}
 }
 
-/* 💎 TARJETA */
+/* 💎 Tarjeta */
 .tarjeta{
 position:relative;
 width:90%;
@@ -136,7 +145,7 @@ box-shadow:0 0 80px rgba(0,255,170,0.15);
 transition:0.3s;
 }
 
-/* ✨ NOMBRE DESVANECIDO */
+/* ✨ Nombre */
 .nombre{
 font-family:'Cormorant Garamond', serif;
 font-size:3.2em;
@@ -157,18 +166,20 @@ transform:translateY(0);
 }
 }
 
-/* ⌨️ TEXTO */
+/* 🖋 Texto bonito */
 .mensaje{
-font-size:1em;
-line-height:1.7em;
+font-family:'Quicksand', sans-serif;
+font-size:1.05em;
+line-height:1.8em;
 white-space:pre-wrap;
 color:#eafff8;
+letter-spacing:0.5px;
 }
 
-/* 📱 RESPONSIVE */
+/* 📱 Responsive */
 @media (max-width:480px){
 .nombre{font-size:2.2em;}
-.mensaje{font-size:0.9em;}
+.mensaje{font-size:0.95em;}
 }
 
 </style>
@@ -181,6 +192,7 @@ color:#eafff8;
 <div class="capa capa1"></div>
 <div class="capa capa2"></div>
 <div class="capa capa3"></div>
+<div class="neblina"></div>
 </div>
 
 <div class="tarjeta" id="tarjeta">
@@ -190,7 +202,7 @@ color:#eafff8;
 
 <script>
 
-/* ⌨️ ESCRITURA AUTOMATICA */
+/* ⌨️ Escritura automática */
 const texto=`Feliz cumpleaños...
 
 Que cada estrella del universo
@@ -211,7 +223,7 @@ setTimeout(escribir,35);
 }
 setTimeout(escribir,2500);
 
-/* ✨ PARTICULAS */
+/* ✨ Partículas */
 for(let i=0;i<40;i++){
 let p=document.createElement("div");
 p.classList.add("particula");
@@ -220,7 +232,7 @@ p.style.animationDuration=(8+Math.random()*5)+"s";
 document.body.appendChild(p);
 }
 
-/* ⭐ ESTRELLAS FUGACES */
+/* ⭐ Estrellas fugaces */
 function estrellaFugaz(){
 let estrella=document.createElement("div");
 estrella.classList.add("estrella");
@@ -236,7 +248,7 @@ estrellaFugaz();
 }
 },2500);
 
-/* 💎 INCLINACIÓN SUAVE */
+/* 💎 Inclinación suave */
 const tarjeta=document.getElementById("tarjeta");
 
 document.addEventListener("mousemove",(e)=>{

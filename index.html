@@ -13,36 +13,22 @@ body{
   justify-content:center;
   align-items:center;
   background:linear-gradient(135deg,#ff7b9c,#ff5f8a);
-  font-family: 'Segoe UI', cursive;
+  font-family:'Segoe UI', cursive;
   overflow:hidden;
 }
 
-/* Corazones flotando */
-.heart{
-  position:absolute;
-  color:rgba(255,255,255,0.3);
-  font-size:20px;
-  animation: float 6s linear infinite;
-}
-
-@keyframes float{
-  0%{transform:translateY(100vh) scale(0.5);opacity:0;}
-  50%{opacity:1;}
-  100%{transform:translateY(-10vh) scale(1);opacity:0;}
-}
-
-/* Contenedor carta */
+/* SOBRE */
 .envelope{
   position:relative;
-  width:350px;
+  width:360px;
   height:250px;
   background:#ff8fab;
   border-radius:20px;
   box-shadow:0 20px 40px rgba(0,0,0,0.2);
-  transition:transform 0.6s;
+  overflow:hidden; /* CLAVE para que no atraviese */
 }
 
-/* Solapa superior */
+/* SOLAPA */
 .flap{
   position:absolute;
   top:0;
@@ -51,11 +37,11 @@ body{
   background:#ff6f91;
   clip-path:polygon(0 0,100% 0,50% 100%);
   transform-origin:top;
-  transition:transform 0.6s;
+  transition:transform 0.7s ease;
   z-index:3;
 }
 
-/* Esquina doblada */
+/* ESQUINA DOBLADA */
 .corner{
   position:absolute;
   top:0;
@@ -66,26 +52,32 @@ body{
   clip-path:polygon(100% 0,0 0,100% 100%);
   cursor:pointer;
   z-index:5;
+  transition:transform 0.3s;
 }
 
-/* Carta interior */
+.corner:hover{
+  transform:scale(1.1);
+}
+
+/* HOJA */
 .letter{
   position:absolute;
-  top:30px;
-  left:15px;
+  bottom:0;
+  left:50%;
+  transform:translate(-50%, 100%);
   width:320px;
   height:400px;
   background:#fff0f5;
   border-radius:20px;
-  padding:20px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+  padding:25px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.25);
   overflow-y:auto;
-  transform:translateY(200px);
+  transition:transform 0.9s ease, opacity 0.6s ease;
   opacity:0;
-  transition:transform 0.8s ease, opacity 0.6s ease;
+  z-index:2;
 }
 
-/* Scroll bonito */
+/* SCROLL BONITO */
 .letter::-webkit-scrollbar{
   width:6px;
 }
@@ -94,20 +86,23 @@ body{
   border-radius:10px;
 }
 
+/* ESTADO ABIERTO */
 .envelope.open .flap{
   transform:rotateX(180deg);
 }
 
 .envelope.open .letter{
-  transform:translateY(-120px);
+  transform:translate(-50%, -40%);
   opacity:1;
 }
 
-.envelope.close .letter{
+/* ESTADO CERRADO */
+.envelope.closed .letter{
+  transform:translate(-50%, 100%);
   opacity:0;
-  transform:translateY(200px);
 }
 
+/* TEXTO */
 h1{
   text-align:center;
   color:#d6336c;
@@ -126,13 +121,25 @@ p{
   font-size:18px;
   margin:25px 0;
 }
+
+/* CORAZONES */
+.heart{
+  position:absolute;
+  color:rgba(255,255,255,0.3);
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh) scale(1);opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
 <div class="envelope" id="envelope">
-
   <div class="flap"></div>
   <div class="corner" id="corner"></div>
 
@@ -145,7 +152,6 @@ p{
     <p>Y que tus sueños se cumplan uno por uno 🎁</p>
     <p>Siempre habrá alguien que crea en ti 💕</p>
   </div>
-
 </div>
 
 <script>
@@ -154,32 +160,29 @@ const corner = document.getElementById("corner");
 
 let abierto = false;
 
-// Solo abrir al cargar
+/* Se abre automáticamente */
 setTimeout(()=>{
   envelope.classList.add("open");
   abierto = true;
 },800);
 
-// Cerrar SOLO tocando esquina doblada
+/* Solo cerrar tocando esquina */
 corner.addEventListener("click", ()=>{
   if(abierto){
     envelope.classList.remove("open");
-    envelope.classList.add("close");
-    setTimeout(()=>{
-      envelope.classList.remove("close");
-    },600);
+    envelope.classList.add("closed");
     abierto = false;
   }
 });
 
-// Crear corazones flotando
+/* Corazones */
 for(let i=0;i<15;i++){
   let heart = document.createElement("div");
   heart.classList.add("heart");
   heart.innerHTML="❤";
   heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=4+Math.random()*4+"s";
   heart.style.fontSize=15+Math.random()*25+"px";
+  heart.style.animationDuration=4+Math.random()*4+"s";
   document.body.appendChild(heart);
 }
 </script>

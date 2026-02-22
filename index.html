@@ -9,14 +9,13 @@
 
 <style>
 
-/* FONDO ANIMADO PERMANENTE */
 body{
     margin:0;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(-45deg,#ff4d79,#ff8fab,#ff6f91,#c9184a);
+    background: linear-gradient(135deg,#ff4d79,#ff8fab,#ff6f91,#c9184a);
     background-size:400% 400%;
     animation:fondoAnimado 12s ease infinite;
     overflow:hidden;
@@ -28,94 +27,84 @@ body{
     100%{background-position:0% 50%;}
 }
 
-/* CORAZONES FLOTANDO */
-.corazon{
-    position:absolute;
-    font-size:20px;
-    animation: flotar 8s linear infinite;
-    opacity:0.6;
-}
-
-@keyframes flotar{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-10vh);}
-}
-
 /* CONTENEDOR */
 .container{
-    width:95%;
+    position:relative;
+    width:90%;
     max-width:600px;
-    height:400px;
-    perspective:1200px;
+    height:380px;
     cursor:pointer;
-    position:relative;
-}
-
-/* SOBRE */
-.envelope{
-    width:100%;
-    height:100%;
-    border-radius:30px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
-    box-shadow:0 30px 60px rgba(0,0,0,0.3);
-    overflow:visible;
-    position:relative;
-}
-
-/* TAPA */
-.flap{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:linear-gradient(135deg,#ff4d79,#ff8fab);
-    clip-path: polygon(0 0,100% 0,50% 65%);
-    transform-origin:top;
-    transition:1s;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    padding-top:60px;
-    font-family:'Great Vibes', cursive;
-    font-size:42px;
-    color:white;
-    border-radius:30px;
 }
 
 /* CARTA */
-.letter{
+.card{
     position:absolute;
-    top:10%;
+    width:100%;
+    height:100%;
+    background:#ff8fab;
+    border-radius:30px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.3);
+    overflow:hidden;
+}
+
+/* PARTE SUPERIOR (se rompe) */
+.top{
+    position:absolute;
+    width:100%;
+    height:50%;
+    background:#ff6f91;
+    clip-path: polygon(0 0,100% 0,100% 100%,0 85%);
+    transition:1s ease;
+}
+
+/* PARTE INFERIOR (cae) */
+.bottom{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:50%;
+    background:#ff6f91;
+    transition:1s ease;
+}
+
+/* HOJA INTERIOR */
+.paper{
+    position:absolute;
+    top:5%;
     left:5%;
     width:90%;
-    height:0;
+    height:90%;
     background:#fff5fa;
     border-radius:25px;
-    overflow-y:auto;
-    transition:height 1s ease;
-    padding:0;
-    box-shadow:
-        0 0 20px #ff4d79,
-        0 0 60px #ff8fab;
-    animation: brillo 2s infinite alternate;
-}
-
-@keyframes brillo{
-    from{box-shadow:0 0 20px #ff4d79,0 0 50px #ff8fab;}
-    to{box-shadow:0 0 40px #ff4d79,0 0 80px #ff8fab;}
-}
-
-/* CONTENIDO */
-.letter-content{
     padding:40px 25px;
+    box-sizing:border-box;
     font-family:'Great Vibes', cursive;
     font-size:32px;
     color:#c9184a;
     text-align:center;
     line-height:1.6;
+    opacity:0;
+    transform:scale(0.8);
+    transition:1s ease 0.5s;
+    box-shadow:0 0 30px #ff4d79;
+    overflow:hidden; /* elimina barra lateral */
 }
 
-/* NOMBRE ANIMADO */
+/* ESTADO ABIERTO */
+.open .top{
+    transform:translateY(-120%) rotate(-8deg);
+}
+
+.open .bottom{
+    transform:translateY(120%) rotate(8deg);
+}
+
+.open .paper{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* NOMBRE */
 .nombre{
     font-size:48px;
     display:block;
@@ -124,32 +113,23 @@ body{
 }
 
 .open .nombre{
-    animation: aparecerNombre 1.5s ease forwards 0.5s,
-               glowNombre 2s infinite alternate 2s;
+    animation:nombreAnim 1.5s forwards 1s,
+             glow 2s infinite alternate 2.5s;
 }
 
-@keyframes aparecerNombre{
+@keyframes nombreAnim{
     from{opacity:0; transform:scale(0.5);}
     to{opacity:1; transform:scale(1);}
 }
 
-@keyframes glowNombre{
+@keyframes glow{
     from{text-shadow:0 0 10px #ff4d79;}
-    to{text-shadow:0 0 35px #ff8fab;}
-}
-
-/* ABIERTO */
-.open .flap{
-    transform:rotateX(180deg);
-}
-
-.open .letter{
-    height:75%;
+    to{text-shadow:0 0 30px #ff8fab;}
 }
 
 @media(max-width:480px){
-    .letter-content{font-size:26px;}
-    .nombre{font-size:38px;}
+    .paper{font-size:24px;}
+    .nombre{font-size:36px;}
 }
 
 </style>
@@ -157,37 +137,25 @@ body{
 
 <body>
 
-<!-- corazones flotando -->
-<div class="corazon" style="left:10%;">💖</div>
-<div class="corazon" style="left:30%; animation-delay:2s;">💗</div>
-<div class="corazon" style="left:60%; animation-delay:4s;">💞</div>
-<div class="corazon" style="left:80%; animation-delay:1s;">💕</div>
+<div class="container" onclick="toggleCard(this)">
+    <div class="card">
+        <div class="top"></div>
+        <div class="bottom"></div>
 
-<div class="container" onclick="toggleLetter(this)">
-    <div class="envelope">
-        <div class="flap">Ábreme 💌</div>
-        <div class="letter" id="letter">
-            <div class="letter-content">
-                Feliz cumpleaños 🎂<br>
-                <span class="nombre">Tarrio 💖</span>
-                Que cada año que pase brille más que el anterior ✨<br><br>
-                Nunca olvides lo increíble que eres 🌸<br><br>
-                Este mensaje ahora sí comienza desde arriba
-                y podrás deslizar sin ningún problema 💕
-            </div>
+        <div class="paper">
+            Feliz cumpleaños 🎂<br>
+            <span class="nombre">Tarrio 💖</span>
+            Que cada año que pase brille más que el anterior ✨<br><br>
+            Nunca olvides lo increíble que eres 🌸<br><br>
+            Hoy el mundo celebra tu existencia 💕
         </div>
+
     </div>
 </div>
 
 <script>
-function toggleLetter(element){
-    element.classList.toggle("open");
-    const letter = document.getElementById("letter");
-    if(element.classList.contains("open")){
-        setTimeout(()=>{
-            letter.scrollTop = 0;
-        },300);
-    }
+function toggleCard(el){
+    el.classList.toggle("open");
 }
 </script>
 

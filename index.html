@@ -3,144 +3,215 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños 💙</title>
+<title>Feliz Cumpleaños 💎</title>
 
 <style>
-body{
+*{
+    box-sizing:border-box;
     margin:0;
+    padding:0;
+}
+
+body{
     font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#c9f9ff,#a3ecff,#7fdfff,#4fd1ff,#00cfff);
-    background-size:300% 300%;
-    animation:fondo 10s ease infinite;
+    background:radial-gradient(circle at top,#1e3c72,#2a5298);
     overflow:hidden;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    color:white;
 }
 
-/* Fondo animado */
-@keyframes fondo{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+/* 🌟 Estrellas */
+.estrella{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:brillar 2s infinite alternate;
 }
 
-.contenedor{
-    background:rgba(255,255,255,0.2);
-    backdrop-filter:blur(12px);
-    padding:40px;
+@keyframes brillar{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* 💎 Tarjeta Premium */
+.tarjeta{
+    width:90%;
+    max-width:400px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
     border-radius:25px;
+    padding:25px;
     text-align:center;
-    width:80%;
-    max-width:600px;
-    box-shadow:0 0 40px rgba(0,200,255,0.6);
-    animation:entrada 1.5s ease forwards;
-    transform:scale(0.7);
+    box-shadow:0 0 40px rgba(0,255,255,0.5);
+    animation:entrada 1.2s ease forwards;
+    transform:translateY(30px);
     opacity:0;
 }
 
 @keyframes entrada{
     to{
-        transform:scale(1);
+        transform:translateY(0);
         opacity:1;
     }
 }
 
-/* 🔥 Título con brillo avanzado */
+/* 🔥 Título brillante */
 h1{
-    font-size:3em;
-    margin-bottom:20px;
-    background:linear-gradient(90deg,#ffffff,#00eaff,#ffffff);
+    font-size:2em;
+    margin-bottom:15px;
+    background:linear-gradient(90deg,#00f5ff,#ffffff,#00f5ff);
     background-size:200%;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-    animation:brillo 3s linear infinite;
-    text-shadow:0 0 20px rgba(0,255,255,0.7);
+    animation:brillo 4s linear infinite;
 }
 
 @keyframes brillo{
-    0%{background-position:0%}
-    100%{background-position:200%}
+    0%{background-position:0%;}
+    100%{background-position:200%;}
 }
 
 .mensaje{
+    font-size:1em;
+    margin-bottom:20px;
+}
+
+/* 💌 Botón sorpresa */
+.boton{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:linear-gradient(90deg,#00eaff,#00aaff);
     color:white;
-    font-size:1.2em;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-/* 💖 Corazones */
-.corazon{
+.boton:hover{
+    transform:scale(1.1);
+}
+
+/* Mensaje secreto */
+.secreto{
+    margin-top:15px;
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition:all 0.5s ease;
+}
+
+.secreto.mostrar{
+    opacity:1;
+    max-height:200px;
+}
+
+/* 📸 Carrusel */
+.carrusel{
+    margin-top:20px;
+    overflow:hidden;
+    border-radius:15px;
+}
+
+.carrusel img{
+    width:100%;
+    border-radius:15px;
+}
+
+/* ✨ Partículas */
+.particula{
     position:absolute;
-    color:white;
-    font-size:20px;
-    animation:flotar 6s linear infinite;
-    opacity:0.7;
-}
-
-@keyframes flotar{
-    0%{transform:translateY(100vh) scale(0.5);}
-    100%{transform:translateY(-10vh) scale(1.2);}
-}
-
-/* 🎆 Confeti */
-.confeti{
-    position:absolute;
-    width:10px;
-    height:10px;
+    width:8px;
+    height:8px;
     background:cyan;
-    opacity:0.8;
-    animation:caer 3s linear forwards;
+    border-radius:50%;
+    pointer-events:none;
+    animation:desvanecer 0.6s linear forwards;
 }
 
-@keyframes caer{
-    0%{transform:translateY(-10px) rotate(0deg);}
-    100%{transform:translateY(100vh) rotate(720deg);}
+@keyframes desvanecer{
+    to{
+        opacity:0;
+        transform:scale(2);
+    }
+}
+
+/* 📱 Ajustes móviles */
+@media (max-width:480px){
+    h1{font-size:1.6em;}
+    .mensaje{font-size:0.9em;}
 }
 
 </style>
 </head>
 <body>
 
-<div class="contenedor">
-    <h1>¡Feliz Cumpleaños! 💙</h1>
+<!-- Tarjeta -->
+<div class="tarjeta">
+    <h1>¡Feliz Cumpleaños! 💎</h1>
     <div class="mensaje">
-        Hoy celebramos lo increíble que eres.  
-        Que tu vida esté llena de luz, sueños cumplidos  
-        y momentos inolvidables ✨
+        Que este nuevo año esté lleno de éxitos,
+        alegría infinita y sueños cumplidos 💙
+    </div>
+
+    <button class="boton" onclick="mostrarSecreto()">Mensaje Sorpresa 💌</button>
+
+    <div class="secreto" id="secreto">
+        Eres una persona increíble,
+        gracias por existir ✨💖
+    </div>
+
+    <!-- 📸 Carrusel Demo -->
+    <div class="carrusel">
+        <img id="imagenCarrusel" src="https://picsum.photos/400/250?1">
     </div>
 </div>
 
 <script>
 
-/* 💖 Crear corazones automáticamente */
-function crearCorazon(){
-    const corazon=document.createElement("div");
-    corazon.classList.add("corazon");
-    corazon.innerHTML="💖";
-    corazon.style.left=Math.random()*100+"vw";
-    corazon.style.fontSize=(Math.random()*20+15)+"px";
-    corazon.style.animationDuration=(Math.random()*3+4)+"s";
-    document.body.appendChild(corazon);
-
-    setTimeout(()=>{corazon.remove();},6000);
+/* 🌟 Crear estrellas */
+for(let i=0;i<80;i++){
+    const estrella=document.createElement("div");
+    estrella.classList.add("estrella");
+    estrella.style.left=Math.random()*100+"vw";
+    estrella.style.top=Math.random()*100+"vh";
+    estrella.style.animationDuration=(Math.random()*2+1)+"s";
+    document.body.appendChild(estrella);
 }
-setInterval(crearCorazon,500);
 
+/* 💌 Mostrar mensaje secreto */
+function mostrarSecreto(){
+    document.getElementById("secreto").classList.toggle("mostrar");
+}
 
-/* 🎆 Confeti al hacer clic */
-document.addEventListener("click",function(){
-    for(let i=0;i<30;i++){
-        const confeti=document.createElement("div");
-        confeti.classList.add("confeti");
-        confeti.style.left=Math.random()*100+"vw";
-        confeti.style.background=`hsl(${Math.random()*360},100%,60%)`;
-        confeti.style.animationDuration=(Math.random()*2+2)+"s";
-        document.body.appendChild(confeti);
+/* 📸 Carrusel automático */
+let imagen=1;
+setInterval(()=>{
+    imagen++;
+    if(imagen>3) imagen=1;
+    document.getElementById("imagenCarrusel").src=
+    "https://picsum.photos/400/250?"+imagen;
+},3000);
 
-        setTimeout(()=>{confeti.remove();},3000);
-    }
+/* ✨ Partículas cursor */
+document.addEventListener("mousemove",crearParticula);
+document.addEventListener("touchmove",(e)=>{
+    crearParticula(e.touches[0]);
 });
+
+function crearParticula(e){
+    const p=document.createElement("div");
+    p.classList.add("particula");
+    p.style.left=e.clientX+"px";
+    p.style.top=e.clientY+"px";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),600);
+}
 
 </script>
 

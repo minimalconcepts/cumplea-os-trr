@@ -2,9 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Carta</title>
+<title>Carta Romántica</title>
 
-<!-- Fuente LOVELY (parecida a Lovelyn elegante) -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
@@ -15,25 +14,41 @@ body{
     justify-content:center;
     align-items:center;
     background: linear-gradient(135deg,#ff4d79,#ff9bb3);
+    overflow:hidden;
     font-family: 'Great Vibes', cursive;
+}
+
+/* CORAZONES DE FONDO */
+body::before{
+    content:"💖 💕 💗 💓 💞 💘 💝 💖 💕 💗";
+    position:absolute;
+    font-size:40px;
+    opacity:0.15;
+    width:200%;
+    animation: floatHearts 20s linear infinite;
+}
+
+@keyframes floatHearts{
+    0%{ transform: translateY(100vh); }
+    100%{ transform: translateY(-100vh); }
 }
 
 /* CONTENEDOR */
 .container{
     position:relative;
-    width:320px;
-    height:220px;
+    width:340px;
+    height:230px;
     cursor:pointer;
 }
 
-/* SOBRE BASE */
+/* SOBRE */
 .envelope{
     position:absolute;
     width:100%;
     height:100%;
-    background:#f8f8f8;
-    border-radius:8px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
     overflow:hidden;
 }
 
@@ -43,43 +58,55 @@ body{
     width:100%;
     height:100%;
     background:#ff4d79;
-    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
     transform-origin: top;
     transition: transform 1s ease;
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
+    padding-top:40px;
     color:white;
-    font-size:28px;
+    font-size:34px;
+    text-shadow:0 2px 5px rgba(0,0,0,0.3);
 }
 
-/* CARTA INTERIOR */
+/* CARTA */
 .letter{
     position:absolute;
     bottom:0;
     width:100%;
     height:0;
     background:#fff0f5;
-    overflow-y:auto;
-    padding:0 20px;
+    padding:0 25px;
     box-sizing:border-box;
-    transition: height 1s ease;
+    transition: height 1.2s ease;
+    overflow:hidden; /* SIN BARRA */
+    border-top:2px solid #ff85a2;
 }
 
 /* TEXTO */
-.letter p{
-    font-size:28px;
+.letter-content{
+    opacity:0;
+    transform:translateY(20px);
+    transition: all 1s ease 0.8s;
+    font-size:30px;
     color:#d6336c;
+    text-align:center;
 }
 
-/* ABIERTO */
+/* ESTADO ABIERTO */
 .open .flap{
     transform: rotateX(180deg);
 }
 
 .open .letter{
-    height:320px;
-    padding:20px;
+    height:360px;
+    padding:30px;
+}
+
+.open .letter-content{
+    opacity:1;
+    transform:translateY(0);
 }
 </style>
 </head>
@@ -90,12 +117,12 @@ body{
     <div class="envelope">
         <div class="flap">Ábreme 💌</div>
         <div class="letter">
-            <p>
-            Feliz cumpleaños 💖<br><br>
-            Que este día sea tan especial como tú.<br><br>
-            Aquí puedes escribir mucho más texto.<br><br>
-            Puedes agregar párrafos largos y se podrá deslizar sin que se cierre la carta.
-            </p>
+            <div class="letter-content">
+                Feliz cumpleaños 💖<br><br>
+                Que este día sea tan especial como tú.<br><br>
+                Eres una persona increíble ✨<br><br>
+                Que todos tus sueños se hagan realidad 💕
+            </div>
         </div>
     </div>
 </div>

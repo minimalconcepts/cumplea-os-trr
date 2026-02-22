@@ -19,7 +19,7 @@ body{
     background: radial-gradient(circle at top, #ff9bb3, #ff4d79 60%, #c9184a);
 }
 
-/* SOBRE CONTENEDOR */
+/* CONTENEDOR */
 .container{
     position:relative;
     width:92%;
@@ -69,29 +69,21 @@ body{
     transition: height 1s ease;
     overflow-y:auto;
     scrollbar-width:none;
-
     border-radius:0 0 25px 25px;
 
     /* BORDE BRILLANTE REAL */
     box-shadow:
-        0 0 15px #ff4d79,
-        0 0 30px #ff8fab,
-        0 0 45px #ff4d79;
+        0 0 20px #ff4d79,
+        0 0 40px #ff8fab;
     animation: glow 2s infinite alternate;
 }
 
 @keyframes glow{
     from{
-        box-shadow:
-        0 0 10px #ff4d79,
-        0 0 20px #ff8fab,
-        0 0 30px #ff4d79;
+        box-shadow:0 0 15px #ff4d79,0 0 30px #ff8fab;
     }
     to{
-        box-shadow:
-        0 0 25px #ff4d79,
-        0 0 50px #ff8fab,
-        0 0 70px #ff4d79;
+        box-shadow:0 0 35px #ff4d79,0 0 60px #ff8fab;
     }
 }
 
@@ -112,11 +104,24 @@ body{
     transition: all 1s ease 0.5s;
 }
 
-/* NOMBRE */
+/* ANIMACIÓN DEL NOMBRE */
 .nombre{
     font-size:50px;
     display:block;
-    animation: nombreGlow 1.5s infinite alternate;
+    opacity:0;
+    transform:scale(0.5);
+}
+
+/* animación cuando se abre */
+.open .nombre{
+    animation: nombreEntrada 1.5s ease forwards 0.8s,
+               nombreGlow 2s infinite alternate 2.3s;
+}
+
+@keyframes nombreEntrada{
+    0%{opacity:0; transform:scale(0.5);}
+    60%{opacity:1; transform:scale(1.2);}
+    100%{opacity:1; transform:scale(1);}
 }
 
 @keyframes nombreGlow{
@@ -139,17 +144,9 @@ body{
     transform:translateY(0);
 }
 
-/* AJOLOTE CAMINANDO */
-.ajolote{
-    position:fixed;
-    bottom:20px;
-    font-size:60px;
-    animation: walk 12s linear infinite;
-}
-
-@keyframes walk{
-    0%{ left:-10%; }
-    100%{ left:110%; }
+@media(max-width:480px){
+    .letter-content{font-size:28px;}
+    .nombre{font-size:40px;}
 }
 
 </style>
@@ -160,22 +157,30 @@ body{
 <div class="container" onclick="toggleLetter(this)">
     <div class="envelope">
         <div class="flap">Ábreme 💌</div>
-        <div class="letter">
+        <div class="letter" id="letter">
             <div class="letter-content">
                 Feliz cumpleaños<br>
-                <span class="nombre">Tarrio 💖</span><br>
+                <span class="nombre">Tarrio 💖</span><br><br>
                 Que cada año que pase brille más que el anterior 💕<br><br>
-                Nunca olvides lo increíble que eres ✨
+                Nunca olvides lo increíble que eres ✨<br><br>
+                Este mensaje puede ser más largo y ahora sí
+                podrás deslizarlo sin que empiece al final.
             </div>
         </div>
     </div>
 </div>
 
-<div class="ajolote">🦎</div>
-
 <script>
 function toggleLetter(element){
     element.classList.toggle("open");
+
+    const letter = document.getElementById("letter");
+
+    if(element.classList.contains("open")){
+        setTimeout(() => {
+            letter.scrollTop = 0; // fuerza inicio arriba
+        }, 300);
+    }
 }
 </script>
 

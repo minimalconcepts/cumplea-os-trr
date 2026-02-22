@@ -13,31 +13,37 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg,#ff4d79,#ff9bb3);
+    background: linear-gradient(135deg,#ff4d79,#ff85a2,#ffb6c1);
     overflow:hidden;
     font-family: 'Great Vibes', cursive;
 }
 
-/* CORAZONES DE FONDO */
-body::before{
-    content:"💖 💕 💗 💓 💞 💘 💝 💖 💕 💗";
+/* CORAZONES FLOTANDO */
+.hearts{
     position:absolute;
-    font-size:40px;
-    opacity:0.15;
-    width:200%;
-    animation: floatHearts 20s linear infinite;
+    width:100%;
+    height:100%;
+    pointer-events:none;
 }
 
-@keyframes floatHearts{
-    0%{ transform: translateY(100vh); }
-    100%{ transform: translateY(-100vh); }
+.hearts span{
+    position:absolute;
+    font-size:22px;
+    animation: float 10s linear infinite;
+    opacity:0.4;
+}
+
+@keyframes float{
+    0%{ transform:translateY(100vh); opacity:0; }
+    50%{ opacity:0.5; }
+    100%{ transform:translateY(-10vh); opacity:0; }
 }
 
 /* CONTENEDOR */
 .container{
     position:relative;
-    width:340px;
-    height:230px;
+    width:360px;
+    height:240px;
     cursor:pointer;
 }
 
@@ -46,10 +52,21 @@ body::before{
     position:absolute;
     width:100%;
     height:100%;
-    background:#ffffff;
-    border-radius:12px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+    background:linear-gradient(145deg,#ffffff,#ffe6f0);
+    border-radius:16px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.25);
     overflow:hidden;
+    border:2px solid #ff99bb;
+}
+
+/* DECORACIÓN EXTERIOR */
+.envelope::before{
+    content:"💖 💕 💗";
+    position:absolute;
+    bottom:10px;
+    right:15px;
+    font-size:22px;
+    opacity:0.7;
 }
 
 /* TAPA */
@@ -57,17 +74,17 @@ body::before{
     position:absolute;
     width:100%;
     height:100%;
-    background:#ff4d79;
+    background:linear-gradient(135deg,#ff4d79,#ff7aa2);
     clip-path: polygon(0 0, 100% 0, 50% 60%);
     transform-origin: top;
     transition: transform 1s ease;
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    padding-top:40px;
+    padding-top:45px;
     color:white;
     font-size:34px;
-    text-shadow:0 2px 5px rgba(0,0,0,0.3);
+    text-shadow:0 3px 8px rgba(0,0,0,0.3);
 }
 
 /* CARTA */
@@ -76,22 +93,29 @@ body::before{
     bottom:0;
     width:100%;
     height:0;
-    background:#fff0f5;
-    padding:0 25px;
+    background:#fff0f6;
     box-sizing:border-box;
     transition: height 1.2s ease;
-    overflow:hidden; /* SIN BARRA */
-    border-top:2px solid #ff85a2;
+    border-top:3px solid #ff99bb;
+
+    overflow-y:auto;
+    scrollbar-width:none; /* Firefox */
 }
 
-/* TEXTO */
+/* Oculta barra en Chrome */
+.letter::-webkit-scrollbar{
+    display:none;
+}
+
 .letter-content{
+    padding:30px;
+    font-size:28px;
+    color:#d6336c;
+    text-align:center;
+    line-height:1.4;
     opacity:0;
     transform:translateY(20px);
     transition: all 1s ease 0.8s;
-    font-size:30px;
-    color:#d6336c;
-    text-align:center;
 }
 
 /* ESTADO ABIERTO */
@@ -100,8 +124,7 @@ body::before{
 }
 
 .open .letter{
-    height:360px;
-    padding:30px;
+    height:400px;
 }
 
 .open .letter-content{
@@ -113,6 +136,15 @@ body::before{
 
 <body>
 
+<div class="hearts">
+    <span style="left:10%; animation-delay:0s;">💖</span>
+    <span style="left:25%; animation-delay:2s;">💕</span>
+    <span style="left:40%; animation-delay:4s;">💗</span>
+    <span style="left:60%; animation-delay:1s;">💓</span>
+    <span style="left:75%; animation-delay:3s;">💞</span>
+    <span style="left:90%; animation-delay:5s;">💘</span>
+</div>
+
 <div class="container" onclick="openLetter(this)">
     <div class="envelope">
         <div class="flap">Ábreme 💌</div>
@@ -121,7 +153,9 @@ body::before{
                 Feliz cumpleaños 💖<br><br>
                 Que este día sea tan especial como tú.<br><br>
                 Eres una persona increíble ✨<br><br>
-                Que todos tus sueños se hagan realidad 💕
+                Que todos tus sueños se hagan realidad 💕<br><br>
+                Aquí puedes escribir muchísimo más texto.<br><br>
+                Ahora puedes deslizar con el mouse o con el dedo en el celular sin que aparezca ninguna barra fea.
             </div>
         </div>
     </div>

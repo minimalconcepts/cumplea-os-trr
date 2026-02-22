@@ -3,136 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños 💚</title>
+<title>Feliz Cumpleaños Tarrio 💚</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    height:100vh;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#021a16;
-    font-family:'Segoe UI',sans-serif;
-    color:white;
+height:100vh;
+overflow:hidden;
+background:#020f0d;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Segoe UI',sans-serif;
+color:white;
 }
 
-/* 🎬 Fade cine */
+/* 🎬 ENTRADA CINE */
 .overlay{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:black;
-    z-index:999;
-    animation:fadeOut 2.5s forwards;
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+z-index:9999;
+animation:fadeOut 3s forwards;
 }
 
 @keyframes fadeOut{
-    to{opacity:0; visibility:hidden;}
+0%{opacity:1;}
+100%{opacity:0;visibility:hidden;}
 }
 
-/* 🌌 Fondo galaxia */
-.galaxia{
-    position:absolute;
-    width:120%;
-    height:120%;
-    background:
-        radial-gradient(circle at 30% 40%, rgba(0,255,170,0.15), transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(0,200,150,0.15), transparent 40%),
-        radial-gradient(2px 2px at 20% 30%, #b6fff2, transparent),
-        radial-gradient(2px 2px at 70% 80%, #8affc1, transparent),
-        radial-gradient(circle at center,#063b2c,#021a16);
-    animation:nebula 25s ease-in-out infinite alternate;
-    transition:transform 0.2s ease-out;
-    z-index:-2;
+/* 🌌 CONTENEDOR FONDO */
+.fondo{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:-3;
 }
 
-@keyframes nebula{
-    from{background-position:0% 0%;}
-    to{background-position:100% 100%;}
+/* 🌌 CAPAS PARALLAX */
+.capa{
+position:absolute;
+width:120%;
+height:120%;
+pointer-events:none;
 }
 
-/* 💎 Tarjeta */
-.tarjeta{
-    position:relative;
-    width:90%;
-    max-width:420px;
-    padding:35px;
-    border-radius:25px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(30px);
-    border:1px solid rgba(150,255,220,0.15);
-    box-shadow:0 0 60px rgba(0,255,170,0.15);
-    overflow:hidden;
+.capa1{
+background:
+radial-gradient(2px 2px at 20% 30%, #9fffe0, transparent),
+radial-gradient(2px 2px at 70% 80%, #8affc1, transparent);
+animation:mover1 40s linear infinite alternate;
 }
 
-/* ✨ Nombre brillante elegante */
-.nombre{
-    font-family:'Cormorant Garamond', serif;
-    font-size:3em;
-    text-align:center;
-    margin-bottom:20px;
-    letter-spacing:4px;
-    color:#cffff1;
-    animation:brillar 3s ease-in-out infinite alternate;
+.capa2{
+background:
+radial-gradient(circle at 30% 40%, rgba(0,255,170,0.15), transparent 40%),
+radial-gradient(circle at 70% 60%, rgba(0,200,150,0.15), transparent 40%);
+animation:mover2 60s linear infinite alternate;
 }
 
-@keyframes brillar{
-    from{
-        text-shadow:
-        0 0 5px #00ffcc,
-        0 0 10px #00ffcc,
-        0 0 20px rgba(0,255,200,0.5);
-    }
-    to{
-        text-shadow:
-        0 0 15px #00ffcc,
-        0 0 30px #00ffcc,
-        0 0 50px rgba(0,255,200,0.8);
-    }
+.capa3{
+background:radial-gradient(circle at center,#063b2c,#021a16);
 }
 
-/* ⌨️ Texto */
-.mensaje{
-    font-size:1em;
-    line-height:1.6em;
-    white-space:pre-wrap;
-    color:#eafff8;
+@keyframes mover1{
+from{transform:translate(0,0);}
+to{transform:translate(-50px,-30px);}
 }
 
-/* ⭐ Estrella fugaz realista */
+@keyframes mover2{
+from{transform:translate(0,0);}
+to{transform:translate(50px,30px);}
+}
+
+/* ✨ PARTICULAS COSMICAS */
+.particula{
+position:absolute;
+width:3px;
+height:3px;
+background:#b6fff2;
+border-radius:50%;
+opacity:0.6;
+animation:flotar 10s linear infinite;
+}
+
+@keyframes flotar{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* ⭐ ESTRELLA FUGAZ CURVA */
 .estrella{
-    position:absolute;
-    width:2px;
-    height:120px;
-    background:linear-gradient(-45deg, white, transparent);
-    filter:drop-shadow(0 0 6px white);
-    animation:fugaz 1.2s linear forwards;
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 8px white, 0 0 20px white;
+animation:fugaz 1.5s ease-out forwards;
 }
 
 @keyframes fugaz{
-    0%{
-        opacity:1;
-        transform:translate(0,0) rotate(-45deg);
-    }
-    100%{
-        opacity:0;
-        transform:translate(400px,400px) rotate(-45deg);
-    }
+0%{
+opacity:1;
+transform:translate(0,0);
+}
+100%{
+opacity:0;
+transform:translate(600px,200px);
+}
 }
 
-/* 📱 Responsive */
+/* 💎 TARJETA */
+.tarjeta{
+position:relative;
+width:90%;
+max-width:420px;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(35px);
+border:1px solid rgba(150,255,220,0.2);
+box-shadow:0 0 80px rgba(0,255,170,0.15);
+overflow:hidden;
+transition:0.3s;
+}
+
+/* Reflejo dinámico */
+.tarjeta::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,0.2),transparent 60%);
+transform:translateX(-100%);
+animation:reflejo 6s linear infinite;
+}
+
+@keyframes reflejo{
+from{transform:translateX(-100%) rotate(25deg);}
+to{transform:translateX(100%) rotate(25deg);}
+}
+
+/* ✨ NOMBRE ÉPICO */
+.nombre{
+font-family:'Cormorant Garamond', serif;
+font-size:3.2em;
+text-align:center;
+letter-spacing:5px;
+color:#d8fff5;
+animation:brillar 3s ease-in-out infinite alternate;
+margin-bottom:25px;
+}
+
+@keyframes brillar{
+from{
+text-shadow:0 0 10px #00ffcc,0 0 20px #00ffcc;
+}
+to{
+text-shadow:0 0 25px #00ffcc,0 0 50px #00ffcc;
+}
+}
+
+/* ⌨️ TEXTO */
+.mensaje{
+font-size:1em;
+line-height:1.7em;
+white-space:pre-wrap;
+color:#eafff8;
+}
+
+/* 📱 RESPONSIVE */
 @media (max-width:480px){
-    .nombre{font-size:2.2em;}
-    .mensaje{font-size:0.9em;}
+.nombre{font-size:2.2em;}
+.mensaje{font-size:0.9em;}
 }
 
 </style>
@@ -140,61 +193,74 @@ body{
 <body>
 
 <div class="overlay"></div>
-<div class="galaxia" id="galaxia"></div>
 
-<div class="tarjeta">
-    <div class="nombre">Tarrio</div>
-    <div class="mensaje" id="mensaje"></div>
+<div class="fondo">
+<div class="capa capa1"></div>
+<div class="capa capa2"></div>
+<div class="capa capa3"></div>
+</div>
+
+<div class="tarjeta" id="tarjeta">
+<div class="nombre">Tarrio</div>
+<div class="mensaje" id="mensaje"></div>
 </div>
 
 <script>
 
-/* ⌨️ Escritura automática */
+/* ⌨️ ESCRITURA AUTOMATICA */
 const texto=`Feliz cumpleaños...
 
-Que cada estrella fugaz sea un deseo cumplido,
-que el universo entero celebre tu existencia,
-y que esta nueva etapa brille más que cualquier galaxia ✨`;
+Que cada estrella del universo
+represente un deseo cumplido.
 
-const mensajeElemento=document.getElementById("mensaje");
+Que las galaxias giren a tu favor,
+y que tu luz brille más que cualquier constelación ✨`;
+
 let i=0;
+const mensajeElemento=document.getElementById("mensaje");
 
 function escribir(){
-    if(i < texto.length){
-        mensajeElemento.textContent += texto.charAt(i);
-        i++;
-        setTimeout(escribir,40);
-    }
+if(i<texto.length){
+mensajeElemento.textContent+=texto.charAt(i);
+i++;
+setTimeout(escribir,35);
 }
-setTimeout(escribir,2000);
+}
+setTimeout(escribir,2500);
 
-/* 🌌 Movimiento suave fondo */
-const galaxia=document.getElementById("galaxia");
+/* ✨ PARTICULAS */
+for(let i=0;i<40;i++){
+let p=document.createElement("div");
+p.classList.add("particula");
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(8+Math.random()*5)+"s";
+document.body.appendChild(p);
+}
 
-document.addEventListener("mousemove",(e)=>{
-    let x=(e.clientX/window.innerWidth -0.5)*20;
-    let y=(e.clientY/window.innerHeight -0.5)*20;
-    galaxia.style.transform=`translate(${x}px, ${y}px)`;
-});
-
-/* ⭐ Varias estrellas fugaces realistas */
-function crearEstrella(){
-    const estrella=document.createElement("div");
-    estrella.classList.add("estrella");
-
-    estrella.style.top=Math.random()*50+"%";
-    estrella.style.left=Math.random()*50+"%";
-
-    document.body.appendChild(estrella);
-
-    setTimeout(()=>estrella.remove(),1200);
+/* ⭐ ESTRELLAS FUGACES MULTIPLES */
+function estrellaFugaz(){
+let estrella=document.createElement("div");
+estrella.classList.add("estrella");
+estrella.style.top=Math.random()*40+"%";
+estrella.style.left=Math.random()*40+"%";
+document.body.appendChild(estrella);
+setTimeout(()=>estrella.remove(),1500);
 }
 
 setInterval(()=>{
-    if(Math.random()>0.5){
-        crearEstrella();
-    }
-},3000);
+if(Math.random()>0.4){
+estrellaFugaz();
+}
+},2500);
+
+/* 💎 REFLEJO SIGUE MOUSE */
+const tarjeta=document.getElementById("tarjeta");
+
+document.addEventListener("mousemove",(e)=>{
+let x=e.clientX/window.innerWidth;
+let y=e.clientY/window.innerHeight;
+tarjeta.style.transform=`rotateY(${(x-0.5)*10}deg) rotateX(${-(y-0.5)*10}deg)`;
+});
 
 </script>
 

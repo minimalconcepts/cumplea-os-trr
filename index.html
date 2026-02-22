@@ -13,19 +13,33 @@
 }
 
 body{
-    font-family:'Segoe UI',sans-serif;
     height:100vh;
     overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:black;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:black;
     color:white;
 }
 
-/* 🌌 Galaxia animada */
-body::before{
-    content:"";
+/* 🎬 Entrada tipo película */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    z-index:999;
+    animation:fadeOut 2.5s forwards;
+}
+
+@keyframes fadeOut{
+    0%{opacity:1;}
+    100%{opacity:0; visibility:hidden;}
+}
+
+/* 🌌 Galaxia fondo */
+.galaxia{
     position:absolute;
     width:200%;
     height:200%;
@@ -34,12 +48,12 @@ body::before{
         radial-gradient(2px 2px at 70% 80%, white, transparent),
         radial-gradient(1px 1px at 40% 60%, white, transparent),
         radial-gradient(circle at center,#0f2027,#203a43,#2c5364);
-    background-size:cover;
-    animation:galaxia 60s linear infinite;
+    animation:rotar 80s linear infinite;
+    transition:transform 0.2s ease-out;
     z-index:-2;
 }
 
-@keyframes galaxia{
+@keyframes rotar{
     from{transform:rotate(0deg);}
     to{transform:rotate(360deg);}
 }
@@ -52,8 +66,8 @@ body::before{
     padding:30px;
     border-radius:25px;
     background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(20px);
-    box-shadow:0 0 50px rgba(0,255,255,0.4);
+    backdrop-filter:blur(25px);
+    box-shadow:0 0 60px rgba(0,255,255,0.4);
     overflow:hidden;
 }
 
@@ -61,18 +75,15 @@ body::before{
 .tarjeta::before{
     content:"";
     position:absolute;
-    top:-100%;
-    left:-100%;
     width:200%;
     height:200%;
     background:linear-gradient(
         120deg,
         transparent 30%,
-        rgba(255,255,255,0.3),
+        rgba(255,255,255,0.25),
         transparent 70%
     );
-    transform:rotate(25deg);
-    animation:reflejo 5s linear infinite;
+    animation:reflejo 6s linear infinite;
 }
 
 @keyframes reflejo{
@@ -80,39 +91,34 @@ body::before{
     to{transform:translateX(100%) rotate(25deg);}
 }
 
-/* ✨ Nombre animado */
+/* ✨ Nombre letra por letra */
 .nombre{
     font-size:2.8em;
     text-align:center;
-    background:linear-gradient(90deg,#00f5ff,#ffffff,#00f5ff);
-    background-size:200%;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:brillo 4s linear infinite;
-    margin-bottom:15px;
+    margin-bottom:20px;
+    letter-spacing:4px;
 }
 
-@keyframes brillo{
-    0%{background-position:0%;}
-    100%{background-position:200%;}
+.letra{
+    opacity:0;
+    display:inline-block;
+    transform:translateY(20px);
+    animation:aparecerLetra 0.6s forwards;
 }
 
-/* ⌨️ Texto escritura */
+@keyframes aparecerLetra{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ⌨️ Texto tipo máquina de escribir */
 .mensaje{
     font-size:1em;
-    border-right:2px solid white;
-    white-space:nowrap;
+    line-height:1.5em;
+    white-space:pre-wrap; /* 👈 PERMITE SALTO DE LÍNEA */
     overflow:hidden;
-    width:0;
-    animation:escribir 6s steps(60,end) forwards, parpadeo 0.8s infinite;
-}
-
-@keyframes escribir{
-    to{width:100%;}
-}
-
-@keyframes parpadeo{
-    50%{border-color:transparent;}
 }
 
 /* 📱 Responsive */
@@ -125,13 +131,66 @@ body::before{
 </head>
 <body>
 
+<div class="overlay"></div>
+<div class="galaxia" id="galaxia"></div>
+
 <div class="tarjeta">
-    <div class="nombre">Tarrio 💙</div>
-    <div class="mensaje">
-        Feliz cumpleaños... Que el universo entero
-        brille hoy solo para ti ✨
-    </div>
+    <div class="nombre" id="nombre"></div>
+    <div class="mensaje" id="mensaje"></div>
 </div>
+
+<script>
+
+/* ✨ Nombre letra por letra */
+const nombreTexto="Tarrio 💙";
+const nombreContenedor=document.getElementById("nombre");
+
+nombreTexto.split("").forEach((letra,i)=>{
+    const span=document.createElement("span");
+    span.textContent=letra;
+    span.classList.add("letra");
+    span.style.animationDelay=(i*0.3)+"s";
+    nombreContenedor.appendChild(span);
+});
+
+/* ⌨️ Escritura automática REAL */
+const texto=`Feliz cumpleaños...
+
+Que el universo entero brille hoy para ti.
+Que cada sueño se convierta en realidad,
+y que esta nueva etapa esté llena
+de momentos inolvidables ✨💫`;
+
+const mensajeElemento=document.getElementById("mensaje");
+let i=0;
+
+function escribir(){
+    if(i < texto.length){
+        mensajeElemento.textContent += texto.charAt(i);
+        i++;
+        setTimeout(escribir,40);
+    }
+}
+
+setTimeout(escribir,2500);
+
+/* 🌌 Profundidad 3D con mouse */
+const galaxia=document.getElementById("galaxia");
+
+document.addEventListener("mousemove",(e)=>{
+    let x=(e.clientX/window.innerWidth -0.5)*20;
+    let y=(e.clientY/window.innerHeight -0.5)*20;
+    galaxia.style.transform=`rotate(${x}deg) translate(${y}px)`;
+});
+
+/* 📱 Profundidad con movimiento del celular */
+window.addEventListener("deviceorientation",(e)=>{
+    let x=e.gamma/3;
+    let y=e.beta/5;
+    galaxia.style.transform=`rotate(${x}deg) translate(${y}px)`;
+});
+
+</script>
 
 </body>
 </html>

@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feliz Cumpleaños 💚</title>
 
-<!-- Tipografía elegante -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
 
 <style>
@@ -21,12 +20,12 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:black;
+    background:#021a16;
     font-family:'Segoe UI',sans-serif;
     color:white;
 }
 
-/* 🎬 Entrada tipo cine */
+/* 🎬 Fade cine */
 .overlay{
     position:fixed;
     width:100%;
@@ -37,72 +36,56 @@ body{
 }
 
 @keyframes fadeOut{
-    0%{opacity:1;}
-    100%{opacity:0; visibility:hidden;}
+    to{opacity:0; visibility:hidden;}
 }
 
-/* 🌌 Galaxia verde-azul */
+/* 🌌 Fondo galaxia */
 .galaxia{
     position:absolute;
-    width:200%;
-    height:200%;
+    width:120%;
+    height:120%;
     background:
+        radial-gradient(circle at 30% 40%, rgba(0,255,170,0.15), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(0,200,150,0.15), transparent 40%),
         radial-gradient(2px 2px at 20% 30%, #b6fff2, transparent),
         radial-gradient(2px 2px at 70% 80%, #8affc1, transparent),
-        radial-gradient(1px 1px at 40% 60%, #d4fffa, transparent),
-        radial-gradient(circle at center,#0b2e26,#063b2c,#021f1a);
-    animation:rotar 100s linear infinite;
+        radial-gradient(circle at center,#063b2c,#021a16);
+    animation:nebula 25s ease-in-out infinite alternate;
     transition:transform 0.2s ease-out;
     z-index:-2;
 }
 
-@keyframes rotar{
-    from{transform:rotate(0deg);}
-    to{transform:rotate(360deg);}
+@keyframes nebula{
+    from{background-position:0% 0%;}
+    to{background-position:100% 100%;}
 }
 
-/* 💎 Tarjeta cristal elegante */
+/* 💎 Tarjeta cristal */
 .tarjeta{
     position:relative;
     width:90%;
     max-width:420px;
     padding:35px;
     border-radius:25px;
-    background:rgba(255,255,255,0.06);
+    background:rgba(255,255,255,0.05);
     backdrop-filter:blur(30px);
-    border:1px solid rgba(150,255,220,0.2);
-    box-shadow:0 0 60px rgba(0,255,170,0.2);
+    border:1px solid rgba(150,255,220,0.15);
+    box-shadow:0 0 60px rgba(0,255,170,0.15);
     overflow:hidden;
 }
 
-/* Reflejo sutil */
-.tarjeta::before{
-    content:"";
-    position:absolute;
-    width:200%;
-    height:200%;
-    background:linear-gradient(
-        120deg,
-        transparent 40%,
-        rgba(255,255,255,0.15),
-        transparent 60%
-    );
-    animation:reflejo 8s linear infinite;
-}
-
-@keyframes reflejo{
-    from{transform:translateX(-100%) rotate(25deg);}
-    to{transform:translateX(100%) rotate(25deg);}
-}
-
-/* ✨ Nombre elegante */
+/* ✨ Nombre efecto grabado láser */
 .nombre{
     font-family:'Cormorant Garamond', serif;
     font-size:3em;
     text-align:center;
     margin-bottom:20px;
-    letter-spacing:3px;
-    color:#b6fff2;
+    letter-spacing:4px;
+    color:#aaffdd;
+    text-shadow:
+        0 0 5px rgba(0,255,170,0.6),
+        0 0 10px rgba(0,255,170,0.4),
+        0 0 20px rgba(0,255,170,0.2);
 }
 
 /* ⌨️ Texto */
@@ -111,6 +94,28 @@ body{
     line-height:1.6em;
     white-space:pre-wrap;
     color:#eafff8;
+}
+
+/* ⭐ Estrella fugaz */
+.estrella{
+    position:absolute;
+    width:2px;
+    height:80px;
+    background:linear-gradient(white, transparent);
+    opacity:0;
+    transform:rotate(45deg);
+    animation:caer 1.5s linear forwards;
+}
+
+@keyframes caer{
+    0%{
+        opacity:1;
+        transform:translate(0,0) rotate(45deg);
+    }
+    100%{
+        opacity:0;
+        transform:translate(300px,300px) rotate(45deg);
+    }
 }
 
 /* 📱 Responsive */
@@ -136,11 +141,9 @@ body{
 /* ⌨️ Escritura automática */
 const texto=`Feliz cumpleaños...
 
-Que el universo se ilumine en tonos verdes y azules
-solo para ti.
-
-Que cada estrella represente un sueño,
-y cada galaxia una nueva oportunidad ✨`;
+Que las estrellas iluminen tu camino,
+que cada nebulosa represente un sueño nuevo,
+y que el universo entero celebre contigo ✨`;
 
 const mensajeElemento=document.getElementById("mensaje");
 let i=0;
@@ -152,23 +155,33 @@ function escribir(){
         setTimeout(escribir,40);
     }
 }
-
 setTimeout(escribir,2000);
 
-/* 🌌 Profundidad 3D */
+/* 🌌 Profundidad sin rotación (solo desplazamiento suave) */
 const galaxia=document.getElementById("galaxia");
 
 document.addEventListener("mousemove",(e)=>{
-    let x=(e.clientX/window.innerWidth -0.5)*15;
-    let y=(e.clientY/window.innerHeight -0.5)*15;
-    galaxia.style.transform=`rotate(${x}deg) translate(${y}px)`;
+    let x=(e.clientX/window.innerWidth -0.5)*20;
+    let y=(e.clientY/window.innerHeight -0.5)*20;
+    galaxia.style.transform=`translate(${x}px, ${y}px)`;
 });
 
-window.addEventListener("deviceorientation",(e)=>{
-    let x=e.gamma/4;
-    let y=e.beta/6;
-    galaxia.style.transform=`rotate(${x}deg) translate(${y}px)`;
-});
+/* ⭐ Estrella fugaz ocasional */
+function estrellaFugaz(){
+    const estrella=document.createElement("div");
+    estrella.classList.add("estrella");
+    estrella.style.top=Math.random()*40+"%";
+    estrella.style.left=Math.random()*40+"%";
+    document.body.appendChild(estrella);
+
+    setTimeout(()=>estrella.remove(),1500);
+}
+
+setInterval(()=>{
+    if(Math.random()>0.6){
+        estrellaFugaz();
+    }
+},4000);
 
 </script>
 

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carta para ti 💌</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -14,29 +14,14 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg,#ff9eb5,#ffc1cc);
+    background: radial-gradient(circle at center, #ffb6c1 0%, #ff8fab 40%, #c9184a 100%);
     overflow:hidden;
-    font-family:'Poppins', sans-serif;
-}
-
-/* Decoración fondo */
-.heart{
-    position:absolute;
-    color:#ff4d88;
-    font-size:20px;
-    animation: flotar 8s linear infinite;
-    opacity:0.6;
-}
-
-@keyframes flotar{
-    from{transform:translateY(100vh) scale(1);}
-    to{transform:translateY(-10vh) scale(1.5);}
 }
 
 /* Contenedor */
 .container{
     position:relative;
-    text-align:center;
+    cursor:pointer;
 }
 
 /* Sobre */
@@ -45,11 +30,25 @@ body{
     height:230px;
     position:relative;
     background:#fff;
-    box-shadow:0 15px 35px rgba(0,0,0,0.2);
-    cursor:pointer;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
     transition:0.8s;
 }
 
+/* Texto Ábreme */
+.open-text{
+    position:absolute;
+    top:95px;
+    width:100%;
+    text-align:center;
+    font-family:Arial;
+    font-weight:bold;
+    color:#c9184a;
+    font-size:20px;
+    z-index:3;
+    transition:0.5s;
+}
+
+/* Tapa */
 .flap{
     position:absolute;
     top:0;
@@ -58,9 +57,10 @@ body{
     height:0;
     border-left:175px solid transparent;
     border-right:175px solid transparent;
-    border-bottom:120px solid #ff5c8a;
+    border-bottom:120px solid #ff4d6d;
     transform-origin:top;
     transition:0.8s;
+    z-index:2;
 }
 
 /* Carta */
@@ -80,26 +80,9 @@ body{
     transform:translateY(100%);
     transition:0.8s;
     font-family:'Great Vibes', cursive;
-    font-size:28px;
-    color:#d63384;
-}
-
-/* Botón */
-button{
-    margin-top:30px;
-    padding:12px 30px;
-    border:none;
-    border-radius:30px;
-    background:#ff4d88;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#e6005c;
-    transform:scale(1.1);
+    font-size:30px;
+    color:#c9184a;
+    z-index:1;
 }
 
 /* Animación abrir */
@@ -110,34 +93,24 @@ button:hover{
 .open .letter{
     transform:translateY(-20px);
 }
+
+.open .open-text{
+    opacity:0;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Corazones fondo -->
-<script>
-for(let i=0;i<25;i++){
-    let heart=document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML="❤";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(Math.random()*20+15)+"px";
-    heart.style.animationDuration=(Math.random()*5+5)+"s";
-    document.body.appendChild(heart);
-}
-</script>
-
-<div class="container">
-    <div class="envelope" id="envelope">
+<div class="container" onclick="abrirCarta()" id="envelope">
+    <div class="envelope">
+        <div class="open-text">Ábreme 💌</div>
         <div class="flap"></div>
         <div class="letter">
             Feliz cumpleaños 💖<br><br>
             Que este día sea tan especial como tú.
         </div>
     </div>
-
-    <button onclick="abrirCarta()">Ábreme 💌</button>
 </div>
 
 <script>

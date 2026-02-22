@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta para ti 💌</title>
+<title>Carta</title>
 
+<!-- Fuente LOVELY (parecida a Lovelyn elegante) -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
@@ -14,108 +14,95 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: radial-gradient(circle at center, #ffb6c1 0%, #ff8fab 40%, #c9184a 100%);
-    overflow:hidden;
+    background: linear-gradient(135deg,#ff4d79,#ff9bb3);
+    font-family: 'Great Vibes', cursive;
 }
 
-/* Contenedor */
+/* CONTENEDOR */
 .container{
     position:relative;
+    width:320px;
+    height:220px;
     cursor:pointer;
 }
 
-/* Sobre */
+/* SOBRE BASE */
 .envelope{
-    width:350px;
-    height:230px;
-    position:relative;
-    background:#fff;
-    box-shadow:0 20px 40px rgba(0,0,0,0.3);
-    transition:0.8s;
-}
-
-/* Texto Ábreme */
-.open-text{
     position:absolute;
-    top:95px;
-    width:100%;
-    text-align:center;
-    font-family:Arial;
-    font-weight:bold;
-    color:#c9184a;
-    font-size:20px;
-    z-index:3;
-    transition:0.5s;
-}
-
-/* Tapa */
-.flap{
-    position:absolute;
-    top:0;
-    left:0;
-    width:0;
-    height:0;
-    border-left:175px solid transparent;
-    border-right:175px solid transparent;
-    border-bottom:120px solid #ff4d6d;
-    transform-origin:top;
-    transition:0.8s;
-    z-index:2;
-}
-
-/* Carta */
-.letter{
-    position:absolute;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
-    background:#fff0f5;
+    background:#f8f8f8;
+    border-radius:8px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    overflow:hidden;
+}
+
+/* TAPA */
+.flap{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ff4d79;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: transform 1s ease;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:30px;
-    box-sizing:border-box;
-    text-align:center;
-    transform:translateY(100%);
-    transition:0.8s;
-    font-family:'Great Vibes', cursive;
-    font-size:30px;
-    color:#c9184a;
-    z-index:1;
+    color:white;
+    font-size:28px;
 }
 
-/* Animación abrir */
+/* CARTA INTERIOR */
+.letter{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:0;
+    background:#fff0f5;
+    overflow-y:auto;
+    padding:0 20px;
+    box-sizing:border-box;
+    transition: height 1s ease;
+}
+
+/* TEXTO */
+.letter p{
+    font-size:28px;
+    color:#d6336c;
+}
+
+/* ABIERTO */
 .open .flap{
-    transform:rotateX(180deg);
+    transform: rotateX(180deg);
 }
 
 .open .letter{
-    transform:translateY(-20px);
-}
-
-.open .open-text{
-    opacity:0;
+    height:320px;
+    padding:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container" onclick="abrirCarta()" id="envelope">
+<div class="container" onclick="openLetter(this)">
     <div class="envelope">
-        <div class="open-text">Ábreme 💌</div>
-        <div class="flap"></div>
+        <div class="flap">Ábreme 💌</div>
         <div class="letter">
+            <p>
             Feliz cumpleaños 💖<br><br>
-            Que este día sea tan especial como tú.
+            Que este día sea tan especial como tú.<br><br>
+            Aquí puedes escribir mucho más texto.<br><br>
+            Puedes agregar párrafos largos y se podrá deslizar sin que se cierre la carta.
+            </p>
         </div>
     </div>
 </div>
 
 <script>
-function abrirCarta(){
-    document.getElementById("envelope").classList.toggle("open");
+function openLetter(element){
+    element.classList.add("open");
 }
 </script>
 

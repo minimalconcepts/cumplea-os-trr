@@ -60,7 +60,7 @@ body{
     to{background-position:100% 100%;}
 }
 
-/* 💎 Tarjeta cristal */
+/* 💎 Tarjeta */
 .tarjeta{
     position:relative;
     width:90%;
@@ -74,18 +74,30 @@ body{
     overflow:hidden;
 }
 
-/* ✨ Nombre efecto grabado láser */
+/* ✨ Nombre brillante elegante */
 .nombre{
     font-family:'Cormorant Garamond', serif;
     font-size:3em;
     text-align:center;
     margin-bottom:20px;
     letter-spacing:4px;
-    color:#aaffdd;
-    text-shadow:
-        0 0 5px rgba(0,255,170,0.6),
-        0 0 10px rgba(0,255,170,0.4),
-        0 0 20px rgba(0,255,170,0.2);
+    color:#cffff1;
+    animation:brillar 3s ease-in-out infinite alternate;
+}
+
+@keyframes brillar{
+    from{
+        text-shadow:
+        0 0 5px #00ffcc,
+        0 0 10px #00ffcc,
+        0 0 20px rgba(0,255,200,0.5);
+    }
+    to{
+        text-shadow:
+        0 0 15px #00ffcc,
+        0 0 30px #00ffcc,
+        0 0 50px rgba(0,255,200,0.8);
+    }
 }
 
 /* ⌨️ Texto */
@@ -96,25 +108,24 @@ body{
     color:#eafff8;
 }
 
-/* ⭐ Estrella fugaz */
+/* ⭐ Estrella fugaz realista */
 .estrella{
     position:absolute;
     width:2px;
-    height:80px;
-    background:linear-gradient(white, transparent);
-    opacity:0;
-    transform:rotate(45deg);
-    animation:caer 1.5s linear forwards;
+    height:120px;
+    background:linear-gradient(-45deg, white, transparent);
+    filter:drop-shadow(0 0 6px white);
+    animation:fugaz 1.2s linear forwards;
 }
 
-@keyframes caer{
+@keyframes fugaz{
     0%{
         opacity:1;
-        transform:translate(0,0) rotate(45deg);
+        transform:translate(0,0) rotate(-45deg);
     }
     100%{
         opacity:0;
-        transform:translate(300px,300px) rotate(45deg);
+        transform:translate(400px,400px) rotate(-45deg);
     }
 }
 
@@ -141,9 +152,9 @@ body{
 /* ⌨️ Escritura automática */
 const texto=`Feliz cumpleaños...
 
-Que las estrellas iluminen tu camino,
-que cada nebulosa represente un sueño nuevo,
-y que el universo entero celebre contigo ✨`;
+Que cada estrella fugaz sea un deseo cumplido,
+que el universo entero celebre tu existencia,
+y que esta nueva etapa brille más que cualquier galaxia ✨`;
 
 const mensajeElemento=document.getElementById("mensaje");
 let i=0;
@@ -157,7 +168,7 @@ function escribir(){
 }
 setTimeout(escribir,2000);
 
-/* 🌌 Profundidad sin rotación (solo desplazamiento suave) */
+/* 🌌 Movimiento suave fondo */
 const galaxia=document.getElementById("galaxia");
 
 document.addEventListener("mousemove",(e)=>{
@@ -166,22 +177,24 @@ document.addEventListener("mousemove",(e)=>{
     galaxia.style.transform=`translate(${x}px, ${y}px)`;
 });
 
-/* ⭐ Estrella fugaz ocasional */
-function estrellaFugaz(){
+/* ⭐ Varias estrellas fugaces realistas */
+function crearEstrella(){
     const estrella=document.createElement("div");
     estrella.classList.add("estrella");
-    estrella.style.top=Math.random()*40+"%";
-    estrella.style.left=Math.random()*40+"%";
+
+    estrella.style.top=Math.random()*50+"%";
+    estrella.style.left=Math.random()*50+"%";
+
     document.body.appendChild(estrella);
 
-    setTimeout(()=>estrella.remove(),1500);
+    setTimeout(()=>estrella.remove(),1200);
 }
 
 setInterval(()=>{
-    if(Math.random()>0.6){
-        estrellaFugaz();
+    if(Math.random()>0.5){
+        crearEstrella();
     }
-},4000);
+},3000);
 
 </script>
 

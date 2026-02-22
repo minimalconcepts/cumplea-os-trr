@@ -17,36 +17,30 @@ body{
     align-items:center;
     overflow:hidden;
     background: radial-gradient(circle at top, #ff9bb3, #ff4d79 60%, #c9184a);
+    font-family:'Poppins', sans-serif;
 }
 
-/* FONDO DECORADO */
-.background-hearts{
+/* PARTÍCULAS */
+.particles span{
     position:absolute;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    pointer-events:none;
-}
-
-.background-hearts span{
-    position:absolute;
-    font-size:30px;
-    opacity:0.25;
+    font-size:18px;
     animation: float 12s linear infinite;
+    opacity:0.4;
 }
 
 @keyframes float{
-    0%{ transform:translateY(100vh) scale(0.8); opacity:0; }
-    50%{ opacity:0.4; }
-    100%{ transform:translateY(-10vh) scale(1.2); opacity:0; }
+    0%{ transform:translateY(100vh) scale(0.8); opacity:0;}
+    50%{opacity:0.6;}
+    100%{ transform:translateY(-10vh) scale(1.2); opacity:0;}
 }
 
 /* CONTENEDOR */
 .container{
     position:relative;
-    width:90%;
+    width:92%;
     max-width:520px;
-    height:320px;
+    height:330px;
+    perspective:1200px;
     cursor:pointer;
 }
 
@@ -56,20 +50,30 @@ body{
     width:100%;
     height:100%;
     background:linear-gradient(145deg,#ffffff,#ffe6f0);
-    border-radius:20px;
-    box-shadow:0 30px 70px rgba(0,0,0,0.3);
+    border-radius:25px;
+    box-shadow:0 40px 80px rgba(0,0,0,0.35);
     overflow:hidden;
     border:3px solid #ff8fab;
+    transition:transform 1s ease;
 }
 
-/* DECORACIÓN EXTERIOR */
-.envelope::after{
-    content:"💖 ✨ 💕 ✨ 💗";
+/* BRILLO */
+.envelope::before{
+    content:"";
     position:absolute;
-    bottom:15px;
-    right:20px;
-    font-size:24px;
-    opacity:0.7;
+    top:-100%;
+    left:-100%;
+    width:200%;
+    height:200%;
+    background:linear-gradient(45deg,transparent,rgba(255,255,255,0.4),transparent);
+    transform:rotate(25deg);
+    animation: shine 4s infinite;
+}
+
+@keyframes shine{
+    0%{ transform:translateX(-100%) rotate(25deg);}
+    50%{ transform:translateX(100%) rotate(25deg);}
+    100%{ transform:translateX(100%) rotate(25deg);}
 }
 
 /* TAPA */
@@ -80,15 +84,15 @@ body{
     background:linear-gradient(135deg,#ff4d79,#ff7aa2);
     clip-path: polygon(0 0, 100% 0, 50% 65%);
     transform-origin: top;
-    transition: transform 1s ease;
+    transition: transform 1.2s ease;
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    padding-top:60px;
+    padding-top:65px;
     color:white;
     font-family:'Great Vibes', cursive;
-    font-size:42px;
-    text-shadow:0 4px 10px rgba(0,0,0,0.4);
+    font-size:44px;
+    text-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
 /* CARTA */
@@ -97,7 +101,7 @@ body{
     bottom:0;
     width:100%;
     height:0;
-    background:linear-gradient(to bottom,#fff0f6,#ffe0ec);
+    background:linear-gradient(to bottom,#fffafc,#ffe0ec);
     border-top:4px solid #ff8fab;
     transition: height 1.2s ease;
     overflow-y:auto;
@@ -110,15 +114,15 @@ body{
 
 /* CONTENIDO */
 .letter-content{
-    padding:40px 30px;
+    padding:45px 35px;
     font-family:'Great Vibes', cursive;
-    font-size:34px;
+    font-size:36px;
     color:#c9184a;
     text-align:center;
-    line-height:1.5;
+    line-height:1.6;
     opacity:0;
-    transform:translateY(30px);
-    transition: all 1s ease 0.8s;
+    transform:translateY(40px);
+    transition: all 1.2s ease 0.8s;
 }
 
 /* ESTADO ABIERTO */
@@ -127,8 +131,8 @@ body{
 }
 
 .open .letter{
-    height:75vh;
-    max-height:650px;
+    height:80vh;
+    max-height:700px;
 }
 
 .open .letter-content{
@@ -136,16 +140,10 @@ body{
     transform:translateY(0);
 }
 
-/* RESPONSIVE EXTRA PARA CELULAR */
+/* RESPONSIVE */
 @media(max-width:480px){
-    .flap{
-        font-size:36px;
-        padding-top:70px;
-    }
-
-    .letter-content{
-        font-size:30px;
-    }
+    .flap{font-size:36px;}
+    .letter-content{font-size:30px;}
 }
 
 </style>
@@ -153,13 +151,13 @@ body{
 
 <body>
 
-<div class="background-hearts">
-    <span style="left:10%; animation-delay:0s;">💖</span>
-    <span style="left:25%; animation-delay:2s;">💕</span>
-    <span style="left:40%; animation-delay:4s;">💗</span>
-    <span style="left:60%; animation-delay:1s;">💓</span>
-    <span style="left:75%; animation-delay:3s;">💞</span>
-    <span style="left:90%; animation-delay:5s;">💘</span>
+<div class="particles">
+    <span style="left:10%; animation-delay:0s;">✨</span>
+    <span style="left:25%; animation-delay:2s;">💖</span>
+    <span style="left:40%; animation-delay:4s;">🌸</span>
+    <span style="left:60%; animation-delay:1s;">✨</span>
+    <span style="left:75%; animation-delay:3s;">💕</span>
+    <span style="left:90%; animation-delay:5s;">🌷</span>
 </div>
 
 <div class="container" onclick="openLetter(this)">
@@ -168,13 +166,13 @@ body{
         <div class="letter">
             <div class="letter-content">
                 Feliz cumpleaños 💖<br><br>
-                Que este día sea tan especial como tú.<br><br>
-                Eres una persona maravillosa ✨<br><br>
-                Que cada sueño que tengas florezca<br>
-                y cada sonrisa ilumine tu camino 💕<br><br>
-                Aquí ahora puedes escribir muchísimo más texto.<br>
-                Se puede deslizar fácilmente tanto en celular<br>
-                como con la rueda del mouse.
+                Hoy el mundo celebra<br>
+                que alguien tan especial existe ✨<br><br>
+                Que la vida te regale momentos mágicos,<br>
+                abrazos sinceros y sueños cumplidos 🌸<br><br>
+                Que cada año que pase<br>
+                brille más que el anterior 💕<br><br>
+                Nunca olvides lo increíble que eres.
             </div>
         </div>
     </div>

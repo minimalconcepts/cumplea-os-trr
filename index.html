@@ -3,87 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños</title>
+<title>Una Carta Para Ti 💌</title>
+
+<!-- Fuente romántica -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
-    padding:0;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(-45deg, #ff4e50, #fc913a, #f9d423, #ff4e50);
-    background-size:400% 400%;
-    animation: fondo 10s ease infinite;
-    font-family: Arial, sans-serif;
-    text-align:center;
-    color:white;
+    background:#ffb6c1;
+    font-family:Arial, sans-serif;
     overflow:hidden;
 }
 
-@keyframes fondo{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
-
+/* Contenedor */
 .container{
-    z-index:2;
+    text-align:center;
+    position:relative;
 }
 
-h1{
-    font-size:60px;
-    margin-bottom:10px;
-    animation: brillo 2s infinite alternate;
-}
-
-h2{
-    font-size:35px;
-    margin-top:0;
-}
-
-p{
-    font-size:20px;
-    margin:20px;
-}
-
-button{
-    padding:15px 30px;
-    font-size:18px;
-    border:none;
-    border-radius:30px;
+/* Sobre */
+.envelope{
+    width:300px;
+    height:200px;
+    background:#fff;
+    position:relative;
     cursor:pointer;
-    background:white;
-    color:#ff4e50;
+    transition:transform 1s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Tapa del sobre */
+.flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    height:0;
+    border-left:150px solid transparent;
+    border-right:150px solid transparent;
+    border-bottom:100px solid #ff6f91;
+    transform-origin:top;
+    transition:transform 1s;
+}
+
+/* Carta */
+.letter{
+    position:absolute;
+    top:20px;
+    left:15px;
+    width:270px;
+    height:160px;
+    background:#fff0f5;
+    padding:20px;
+    box-sizing:border-box;
+    transform:translateY(100%);
+    transition:transform 1s;
+    font-family: 'Great Vibes', cursive;
+    font-size:24px;
+    color:#d63384;
+}
+
+/* Botón */
+button{
+    margin-top:20px;
+    padding:10px 25px;
+    border:none;
+    border-radius:20px;
+    background:#ff6f91;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
     transition:0.3s;
 }
 
 button:hover{
-    background:#ff4e50;
-    color:white;
+    background:#ff3e6c;
     transform:scale(1.1);
 }
 
-@keyframes brillo{
-    from{text-shadow:0 0 10px white;}
-    to{text-shadow:0 0 30px yellow;}
+/* Animación cuando abre */
+.open .flap{
+    transform:rotateX(180deg);
 }
 
-/* Confeti */
-.confeti{
-    position:absolute;
-    width:10px;
-    height:10px;
-    background:red;
-    top:-10px;
-    animation: caer 5s linear infinite;
-}
-
-@keyframes caer{
-    to{
-        transform: translateY(100vh) rotate(360deg);
-    }
+.open .letter{
+    transform:translateY(0);
 }
 </style>
 </head>
@@ -91,29 +100,20 @@ button:hover{
 <body>
 
 <div class="container">
-<h1>esto es un fucking prueba</h1>
-<h2>Para: negro</h2>
-<p>viva prussia</p>
+    <div class="envelope" id="envelope">
+        <div class="flap"></div>
+        <div class="letter">
+            Feliz cumpleaños 💖<br><br>
+            Que este día sea tan especial como tú.
+        </div>
+    </div>
 
-<button onclick="celebrar()">Haz clic para celebrar 🎂</button>
+    <button onclick="abrirCarta()">Ábreme 💌</button>
 </div>
 
 <script>
-function celebrar(){
-    alert("🎂 ¡Que tengas el mejor día del mundo! 🎂");
-
-    for(let i=0;i<50;i++){
-        let confeti=document.createElement("div");
-        confeti.classList.add("confeti");
-        confeti.style.left=Math.random()*100+"vw";
-        confeti.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
-        confeti.style.animationDuration=(Math.random()*3+2)+"s";
-        document.body.appendChild(confeti);
-
-        setTimeout(()=>{
-            confeti.remove();
-        },5000);
-    }
+function abrirCarta(){
+    document.getElementById("envelope").classList.toggle("open");
 }
 </script>
 

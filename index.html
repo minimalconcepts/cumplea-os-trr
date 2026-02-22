@@ -40,7 +40,7 @@ animation:fadeOut 3s forwards;
 100%{opacity:0;visibility:hidden;}
 }
 
-/* 🌌 CONTENEDOR FONDO */
+/* 🌌 FONDO MULTICAPA */
 .fondo{
 position:absolute;
 width:100%;
@@ -49,7 +49,6 @@ overflow:hidden;
 z-index:-3;
 }
 
-/* 🌌 CAPAS PARALLAX */
 .capa{
 position:absolute;
 width:120%;
@@ -85,7 +84,7 @@ from{transform:translate(0,0);}
 to{transform:translate(50px,30px);}
 }
 
-/* ✨ PARTICULAS COSMICAS */
+/* ✨ PARTICULAS */
 .particula{
 position:absolute;
 width:3px;
@@ -101,7 +100,7 @@ animation:flotar 10s linear infinite;
 100%{transform:translateY(-10vh);}
 }
 
-/* ⭐ ESTRELLA FUGAZ CURVA */
+/* ⭐ ESTRELLAS FUGACES */
 .estrella{
 position:absolute;
 width:3px;
@@ -134,43 +133,27 @@ background:rgba(255,255,255,0.05);
 backdrop-filter:blur(35px);
 border:1px solid rgba(150,255,220,0.2);
 box-shadow:0 0 80px rgba(0,255,170,0.15);
-overflow:hidden;
 transition:0.3s;
 }
 
-/* Reflejo dinámico */
-.tarjeta::before{
-content:"";
-position:absolute;
-width:200%;
-height:200%;
-background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,0.2),transparent 60%);
-transform:translateX(-100%);
-animation:reflejo 6s linear infinite;
-}
-
-@keyframes reflejo{
-from{transform:translateX(-100%) rotate(25deg);}
-to{transform:translateX(100%) rotate(25deg);}
-}
-
-/* ✨ NOMBRE ÉPICO */
+/* ✨ NOMBRE DESVANECIDO */
 .nombre{
 font-family:'Cormorant Garamond', serif;
 font-size:3.2em;
 text-align:center;
 letter-spacing:5px;
 color:#d8fff5;
-animation:brillar 3s ease-in-out infinite alternate;
 margin-bottom:25px;
+opacity:0;
+transform:translateY(20px);
+animation:fadeNombre 2s ease forwards;
+animation-delay:2.5s;
 }
 
-@keyframes brillar{
-from{
-text-shadow:0 0 10px #00ffcc,0 0 20px #00ffcc;
-}
+@keyframes fadeNombre{
 to{
-text-shadow:0 0 25px #00ffcc,0 0 50px #00ffcc;
+opacity:1;
+transform:translateY(0);
 }
 }
 
@@ -237,7 +220,7 @@ p.style.animationDuration=(8+Math.random()*5)+"s";
 document.body.appendChild(p);
 }
 
-/* ⭐ ESTRELLAS FUGACES MULTIPLES */
+/* ⭐ ESTRELLAS FUGACES */
 function estrellaFugaz(){
 let estrella=document.createElement("div");
 estrella.classList.add("estrella");
@@ -253,13 +236,13 @@ estrellaFugaz();
 }
 },2500);
 
-/* 💎 REFLEJO SIGUE MOUSE */
+/* 💎 INCLINACIÓN SUAVE */
 const tarjeta=document.getElementById("tarjeta");
 
 document.addEventListener("mousemove",(e)=>{
 let x=e.clientX/window.innerWidth;
 let y=e.clientY/window.innerHeight;
-tarjeta.style.transform=`rotateY(${(x-0.5)*10}deg) rotateX(${-(y-0.5)*10}deg)`;
+tarjeta.style.transform=`rotateY(${(x-0.5)*8}deg) rotateX(${-(y-0.5)*8}deg)`;
 });
 
 </script>

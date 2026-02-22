@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(-45deg, #ff4e50, #fc913a, #f9d423, #ff4e50);
+    background-size:400% 400%;
+    animation: fondo 10s ease infinite;
+    font-family: Arial, sans-serif;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+
+@keyframes fondo{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    z-index:2;
+}
+
+h1{
+    font-size:60px;
+    margin-bottom:10px;
+    animation: brillo 2s infinite alternate;
+}
+
+h2{
+    font-size:35px;
+    margin-top:0;
+}
+
+p{
+    font-size:20px;
+    margin:20px;
+}
+
+button{
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:white;
+    color:#ff4e50;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#ff4e50;
+    color:white;
+    transform:scale(1.1);
+}
+
+@keyframes brillo{
+    from{text-shadow:0 0 10px white;}
+    to{text-shadow:0 0 30px yellow;}
+}
+
+/* Confeti */
+.confeti{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:red;
+    top:-10px;
+    animation: caer 5s linear infinite;
+}
+
+@keyframes caer{
+    to{
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🎉 ¡Feliz Cumpleaños! 🎉</h1>
+<h2>Para: NOMBRE_AQUI</h2>
+<p>Que este nuevo año esté lleno de aventuras increíbles y momentos inolvidables 💖</p>
+
+<button onclick="celebrar()">Haz clic para celebrar 🎂</button>
+</div>
+
+<script>
+function celebrar(){
+    alert("🎂 ¡Que tengas el mejor día del mundo! 🎂");
+
+    for(let i=0;i<50;i++){
+        let confeti=document.createElement("div");
+        confeti.classList.add("confeti");
+        confeti.style.left=Math.random()*100+"vw";
+        confeti.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
+        confeti.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(confeti);
+
+        setTimeout(()=>{
+            confeti.remove();
+        },5000);
+    }
+}
+</script>
+
+</body>
+</html>

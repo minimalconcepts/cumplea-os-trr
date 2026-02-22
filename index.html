@@ -27,7 +27,6 @@ body{
     100%{background-position:0% 50%;}
 }
 
-/* CONTENEDOR */
 .container{
     position:relative;
     width:90%;
@@ -45,9 +44,25 @@ body{
     border-radius:30px;
     box-shadow:0 30px 60px rgba(0,0,0,0.3);
     overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* PARTE SUPERIOR (se rompe) */
+/* TEXTO ABREME */
+.open-text{
+    position:absolute;
+    font-family:'Great Vibes', cursive;
+    font-size:40px;
+    color:white;
+    transition:opacity 0.5s;
+}
+
+.open .open-text{
+    opacity:0;
+}
+
+/* PARTES */
 .top{
     position:absolute;
     width:100%;
@@ -57,7 +72,6 @@ body{
     transition:1s ease;
 }
 
-/* PARTE INFERIOR (cae) */
 .bottom{
     position:absolute;
     bottom:0;
@@ -67,7 +81,7 @@ body{
     transition:1s ease;
 }
 
-/* HOJA INTERIOR */
+/* HOJA */
 .paper{
     position:absolute;
     top:5%;
@@ -85,12 +99,11 @@ body{
     line-height:1.6;
     opacity:0;
     transform:scale(0.8);
-    transition:1s ease 0.5s;
+    transition:1s ease;
     box-shadow:0 0 30px #ff4d79;
-    overflow:hidden; /* elimina barra lateral */
 }
 
-/* ESTADO ABIERTO */
+/* ABRIR */
 .open .top{
     transform:translateY(-120%) rotate(-8deg);
 }
@@ -113,7 +126,7 @@ body{
 }
 
 .open .nombre{
-    animation:nombreAnim 1.5s forwards 1s,
+    animation:nombreAnim 1.5s forwards 0.8s,
              glow 2s infinite alternate 2.5s;
 }
 
@@ -139,10 +152,13 @@ body{
 
 <div class="container" onclick="toggleCard(this)">
     <div class="card">
+
+        <div class="open-text">Ábreme 💌</div>
+
         <div class="top"></div>
         <div class="bottom"></div>
 
-        <div class="paper">
+        <div class="paper" id="paper">
             Feliz cumpleaños 🎂<br>
             <span class="nombre">Tarrio 💖</span>
             Que cada año que pase brille más que el anterior ✨<br><br>
@@ -154,8 +170,24 @@ body{
 </div>
 
 <script>
+let abierto = false;
+
 function toggleCard(el){
-    el.classList.toggle("open");
+    const paper = document.getElementById("paper");
+
+    if(!abierto){
+        el.classList.add("open");
+        abierto = true;
+    }else{
+        // primero desvanece la hoja
+        paper.style.opacity = "0";
+        paper.style.transform = "scale(0.8)";
+
+        setTimeout(()=>{
+            el.classList.remove("open");
+            abierto = false;
+        },600);
+    }
 }
 </script>
 

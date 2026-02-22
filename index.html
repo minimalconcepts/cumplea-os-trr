@@ -2,48 +2,51 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Carta Romántica</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta Especial</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
 <style>
+
 body{
     margin:0;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg,#ff4d79,#ff85a2,#ffb6c1);
     overflow:hidden;
-    font-family: 'Great Vibes', cursive;
+    background: radial-gradient(circle at top, #ff9bb3, #ff4d79 60%, #c9184a);
 }
 
-/* CORAZONES FLOTANDO */
-.hearts{
+/* FONDO DECORADO */
+.background-hearts{
     position:absolute;
     width:100%;
     height:100%;
+    overflow:hidden;
     pointer-events:none;
 }
 
-.hearts span{
+.background-hearts span{
     position:absolute;
-    font-size:22px;
-    animation: float 10s linear infinite;
-    opacity:0.4;
+    font-size:30px;
+    opacity:0.25;
+    animation: float 12s linear infinite;
 }
 
 @keyframes float{
-    0%{ transform:translateY(100vh); opacity:0; }
-    50%{ opacity:0.5; }
-    100%{ transform:translateY(-10vh); opacity:0; }
+    0%{ transform:translateY(100vh) scale(0.8); opacity:0; }
+    50%{ opacity:0.4; }
+    100%{ transform:translateY(-10vh) scale(1.2); opacity:0; }
 }
 
 /* CONTENEDOR */
 .container{
     position:relative;
-    width:360px;
-    height:240px;
+    width:90%;
+    max-width:520px;
+    height:320px;
     cursor:pointer;
 }
 
@@ -53,19 +56,19 @@ body{
     width:100%;
     height:100%;
     background:linear-gradient(145deg,#ffffff,#ffe6f0);
-    border-radius:16px;
-    box-shadow:0 25px 60px rgba(0,0,0,0.25);
+    border-radius:20px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.3);
     overflow:hidden;
-    border:2px solid #ff99bb;
+    border:3px solid #ff8fab;
 }
 
 /* DECORACIÓN EXTERIOR */
-.envelope::before{
-    content:"💖 💕 💗";
+.envelope::after{
+    content:"💖 ✨ 💕 ✨ 💗";
     position:absolute;
-    bottom:10px;
-    right:15px;
-    font-size:22px;
+    bottom:15px;
+    right:20px;
+    font-size:24px;
     opacity:0.7;
 }
 
@@ -75,16 +78,17 @@ body{
     width:100%;
     height:100%;
     background:linear-gradient(135deg,#ff4d79,#ff7aa2);
-    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    clip-path: polygon(0 0, 100% 0, 50% 65%);
     transform-origin: top;
     transition: transform 1s ease;
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    padding-top:45px;
+    padding-top:60px;
     color:white;
-    font-size:34px;
-    text-shadow:0 3px 8px rgba(0,0,0,0.3);
+    font-family:'Great Vibes', cursive;
+    font-size:42px;
+    text-shadow:0 4px 10px rgba(0,0,0,0.4);
 }
 
 /* CARTA */
@@ -93,28 +97,27 @@ body{
     bottom:0;
     width:100%;
     height:0;
-    background:#fff0f6;
-    box-sizing:border-box;
+    background:linear-gradient(to bottom,#fff0f6,#ffe0ec);
+    border-top:4px solid #ff8fab;
     transition: height 1.2s ease;
-    border-top:3px solid #ff99bb;
-
     overflow-y:auto;
-    scrollbar-width:none; /* Firefox */
+    scrollbar-width:none;
 }
 
-/* Oculta barra en Chrome */
 .letter::-webkit-scrollbar{
     display:none;
 }
 
+/* CONTENIDO */
 .letter-content{
-    padding:30px;
-    font-size:28px;
-    color:#d6336c;
+    padding:40px 30px;
+    font-family:'Great Vibes', cursive;
+    font-size:34px;
+    color:#c9184a;
     text-align:center;
-    line-height:1.4;
+    line-height:1.5;
     opacity:0;
-    transform:translateY(20px);
+    transform:translateY(30px);
     transition: all 1s ease 0.8s;
 }
 
@@ -124,19 +127,33 @@ body{
 }
 
 .open .letter{
-    height:400px;
+    height:75vh;
+    max-height:650px;
 }
 
 .open .letter-content{
     opacity:1;
     transform:translateY(0);
 }
+
+/* RESPONSIVE EXTRA PARA CELULAR */
+@media(max-width:480px){
+    .flap{
+        font-size:36px;
+        padding-top:70px;
+    }
+
+    .letter-content{
+        font-size:30px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="hearts">
+<div class="background-hearts">
     <span style="left:10%; animation-delay:0s;">💖</span>
     <span style="left:25%; animation-delay:2s;">💕</span>
     <span style="left:40%; animation-delay:4s;">💗</span>
@@ -152,10 +169,12 @@ body{
             <div class="letter-content">
                 Feliz cumpleaños 💖<br><br>
                 Que este día sea tan especial como tú.<br><br>
-                Eres una persona increíble ✨<br><br>
-                Que todos tus sueños se hagan realidad 💕<br><br>
-                Aquí puedes escribir muchísimo más texto.<br><br>
-                Ahora puedes deslizar con el mouse o con el dedo en el celular sin que aparezca ninguna barra fea.
+                Eres una persona maravillosa ✨<br><br>
+                Que cada sueño que tengas florezca<br>
+                y cada sonrisa ilumine tu camino 💕<br><br>
+                Aquí ahora puedes escribir muchísimo más texto.<br>
+                Se puede deslizar fácilmente tanto en celular<br>
+                como con la rueda del mouse.
             </div>
         </div>
     </div>

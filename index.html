@@ -3,72 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños 💎</title>
+<title>Feliz Cumpleaños Tarrio 💙</title>
 
 <style>
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
 }
 
 body{
     font-family:'Segoe UI',sans-serif;
-    background:radial-gradient(circle at top,#1e3c72,#2a5298);
-    overflow:hidden;
     height:100vh;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:black;
     color:white;
 }
 
-/* 🌟 Estrellas */
-.estrella{
+/* 🌌 Galaxia animada */
+body::before{
+    content:"";
     position:absolute;
-    width:3px;
-    height:3px;
-    background:white;
-    border-radius:50%;
-    animation:brillar 2s infinite alternate;
+    width:200%;
+    height:200%;
+    background:
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 70% 80%, white, transparent),
+        radial-gradient(1px 1px at 40% 60%, white, transparent),
+        radial-gradient(circle at center,#0f2027,#203a43,#2c5364);
+    background-size:cover;
+    animation:galaxia 60s linear infinite;
+    z-index:-2;
 }
 
-@keyframes brillar{
-    from{opacity:0.2;}
-    to{opacity:1;}
+@keyframes galaxia{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
 }
 
-/* 💎 Tarjeta Premium */
+/* 💎 Tarjeta cristal */
 .tarjeta{
+    position:relative;
     width:90%;
-    max-width:400px;
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(15px);
+    max-width:420px;
+    padding:30px;
     border-radius:25px;
-    padding:25px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    box-shadow:0 0 50px rgba(0,255,255,0.4);
+    overflow:hidden;
+}
+
+/* Reflejo dinámico */
+.tarjeta::before{
+    content:"";
+    position:absolute;
+    top:-100%;
+    left:-100%;
+    width:200%;
+    height:200%;
+    background:linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255,255,255,0.3),
+        transparent 70%
+    );
+    transform:rotate(25deg);
+    animation:reflejo 5s linear infinite;
+}
+
+@keyframes reflejo{
+    from{transform:translateX(-100%) rotate(25deg);}
+    to{transform:translateX(100%) rotate(25deg);}
+}
+
+/* ✨ Nombre animado */
+.nombre{
+    font-size:2.8em;
     text-align:center;
-    box-shadow:0 0 40px rgba(0,255,255,0.5);
-    animation:entrada 1.2s ease forwards;
-    transform:translateY(30px);
-    opacity:0;
-}
-
-@keyframes entrada{
-    to{
-        transform:translateY(0);
-        opacity:1;
-    }
-}
-
-/* 🔥 Título brillante */
-h1{
-    font-size:2em;
-    margin-bottom:15px;
     background:linear-gradient(90deg,#00f5ff,#ffffff,#00f5ff);
     background-size:200%;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
     animation:brillo 4s linear infinite;
+    margin-bottom:15px;
 }
 
 @keyframes brillo{
@@ -76,74 +97,27 @@ h1{
     100%{background-position:200%;}
 }
 
+/* ⌨️ Texto escritura */
 .mensaje{
     font-size:1em;
-    margin-bottom:20px;
-}
-
-/* 💌 Botón sorpresa */
-.boton{
-    padding:10px 20px;
-    border:none;
-    border-radius:20px;
-    background:linear-gradient(90deg,#00eaff,#00aaff);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.boton:hover{
-    transform:scale(1.1);
-}
-
-/* Mensaje secreto */
-.secreto{
-    margin-top:15px;
-    opacity:0;
-    max-height:0;
+    border-right:2px solid white;
+    white-space:nowrap;
     overflow:hidden;
-    transition:all 0.5s ease;
+    width:0;
+    animation:escribir 6s steps(60,end) forwards, parpadeo 0.8s infinite;
 }
 
-.secreto.mostrar{
-    opacity:1;
-    max-height:200px;
+@keyframes escribir{
+    to{width:100%;}
 }
 
-/* 📸 Carrusel */
-.carrusel{
-    margin-top:20px;
-    overflow:hidden;
-    border-radius:15px;
+@keyframes parpadeo{
+    50%{border-color:transparent;}
 }
 
-.carrusel img{
-    width:100%;
-    border-radius:15px;
-}
-
-/* ✨ Partículas */
-.particula{
-    position:absolute;
-    width:8px;
-    height:8px;
-    background:cyan;
-    border-radius:50%;
-    pointer-events:none;
-    animation:desvanecer 0.6s linear forwards;
-}
-
-@keyframes desvanecer{
-    to{
-        opacity:0;
-        transform:scale(2);
-    }
-}
-
-/* 📱 Ajustes móviles */
+/* 📱 Responsive */
 @media (max-width:480px){
-    h1{font-size:1.6em;}
+    .nombre{font-size:2em;}
     .mensaje{font-size:0.9em;}
 }
 
@@ -151,69 +125,13 @@ h1{
 </head>
 <body>
 
-<!-- Tarjeta -->
 <div class="tarjeta">
-    <h1>¡Feliz Cumpleaños! 💎</h1>
+    <div class="nombre">Tarrio 💙</div>
     <div class="mensaje">
-        Que este nuevo año esté lleno de éxitos,
-        alegría infinita y sueños cumplidos 💙
-    </div>
-
-    <button class="boton" onclick="mostrarSecreto()">Mensaje Sorpresa 💌</button>
-
-    <div class="secreto" id="secreto">
-        Eres una persona increíble,
-        gracias por existir ✨💖
-    </div>
-
-    <!-- 📸 Carrusel Demo -->
-    <div class="carrusel">
-        <img id="imagenCarrusel" src="https://picsum.photos/400/250?1">
+        Feliz cumpleaños... Que el universo entero
+        brille hoy solo para ti ✨
     </div>
 </div>
-
-<script>
-
-/* 🌟 Crear estrellas */
-for(let i=0;i<80;i++){
-    const estrella=document.createElement("div");
-    estrella.classList.add("estrella");
-    estrella.style.left=Math.random()*100+"vw";
-    estrella.style.top=Math.random()*100+"vh";
-    estrella.style.animationDuration=(Math.random()*2+1)+"s";
-    document.body.appendChild(estrella);
-}
-
-/* 💌 Mostrar mensaje secreto */
-function mostrarSecreto(){
-    document.getElementById("secreto").classList.toggle("mostrar");
-}
-
-/* 📸 Carrusel automático */
-let imagen=1;
-setInterval(()=>{
-    imagen++;
-    if(imagen>3) imagen=1;
-    document.getElementById("imagenCarrusel").src=
-    "https://picsum.photos/400/250?"+imagen;
-},3000);
-
-/* ✨ Partículas cursor */
-document.addEventListener("mousemove",crearParticula);
-document.addEventListener("touchmove",(e)=>{
-    crearParticula(e.touches[0]);
-});
-
-function crearParticula(e){
-    const p=document.createElement("div");
-    p.classList.add("particula");
-    p.style.left=e.clientX+"px";
-    p.style.top=e.clientY+"px";
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),600);
-}
-
-</script>
 
 </body>
 </html>

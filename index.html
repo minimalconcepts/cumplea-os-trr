@@ -21,19 +21,21 @@ body{
     overflow:hidden;
 }
 
-/* Fondo animado */
 @keyframes fondoAnimado{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
 }
 
-/* Corazones flotando */
-.heart{
+/* Corazones */
+.heart, .sparkle{
     position:absolute;
-    font-size:20px;
     opacity:0.6;
     animation: float 8s linear infinite;
+}
+
+.sparkle{
+    font-size:14px;
 }
 
 @keyframes float{
@@ -41,12 +43,11 @@ body{
     to{transform:translateY(-10vh);}
 }
 
-/* Contenedor */
 .container{
     position:relative;
     width:90%;
     max-width:600px;
-    height:380px;
+    height:400px;
     cursor:pointer;
 }
 
@@ -57,11 +58,38 @@ body{
     height:100%;
     background:#ff8fab;
     border-radius:30px;
-    box-shadow:0 30px 60px rgba(0,0,0,0.3);
     overflow:hidden;
+    box-shadow:
+        0 0 40px rgba(255,77,121,0.6),
+        0 20px 60px rgba(0,0,0,0.3);
+    animation: glowCard 3s ease-in-out infinite alternate;
 }
 
-/* Texto Ábreme */
+@keyframes glowCard{
+    from{box-shadow:0 0 30px rgba(255,77,121,0.4),0 20px 60px rgba(0,0,0,0.3);}
+    to{box-shadow:0 0 70px rgba(255,105,180,0.9),0 20px 60px rgba(0,0,0,0.3);}
+}
+
+/* Destello */
+.card::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.5),transparent);
+    transform:skewX(-20deg);
+    animation: shine 4s infinite;
+}
+
+@keyframes shine{
+    0%{left:-100%;}
+    50%{left:150%;}
+    100%{left:150%;}
+}
+
+/* Texto abrir */
 .open-text{
     position:absolute;
     width:100%;
@@ -83,6 +111,7 @@ body{
     height:50%;
     background:#ff6f91;
     transition:1s ease;
+    z-index:3;
 }
 
 .top{
@@ -106,17 +135,23 @@ body{
     padding:40px 25px;
     box-sizing:border-box;
     font-family:'Great Vibes', cursive;
-    font-size:32px;
+    font-size:30px;
     color:#c9184a;
     text-align:center;
     line-height:1.6;
     opacity:0;
     transform:scale(0.8);
     transition:0.8s ease;
-    box-shadow:0 0 30px #ff4d79;
+    box-shadow:
+        0 0 40px rgba(255,77,121,0.6),
+        inset 0 0 30px rgba(255,192,203,0.4);
+
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    z-index:2;
 }
 
-/* Estado abierto */
+/* Abrir */
 .container.open .top{
     transform:translateY(-120%) rotate(-8deg);
 }
@@ -158,7 +193,7 @@ body{
 }
 
 @media(max-width:480px){
-    .paper{font-size:24px;}
+    .paper{font-size:22px;}
     .nombre{font-size:36px;}
 }
 
@@ -167,11 +202,17 @@ body{
 
 <body>
 
-<!-- Corazones -->
+<!-- corazones -->
 <div class="heart" style="left:10%;">💖</div>
 <div class="heart" style="left:25%; animation-delay:2s;">💗</div>
 <div class="heart" style="left:50%; animation-delay:4s;">💕</div>
 <div class="heart" style="left:75%; animation-delay:1s;">💞</div>
+
+<!-- partículas -->
+<div class="sparkle" style="left:15%;">✨</div>
+<div class="sparkle" style="left:35%; animation-delay:2s;">✨</div>
+<div class="sparkle" style="left:65%; animation-delay:4s;">✨</div>
+<div class="sparkle" style="left:85%; animation-delay:1s;">✨</div>
 
 <div class="container" onclick="toggleCard(this)">
     <div class="card">
@@ -186,7 +227,9 @@ body{
             <span class="nombre">Tarrio 💖</span>
             Que cada año que pase brille más que el anterior ✨<br><br>
             Nunca olvides lo increíble que eres 🌸<br><br>
-            Hoy el mundo celebra tu existencia 💕
+            Hoy el mundo celebra tu existencia 💕<br><br>
+            Que tus sueños sigan creciendo y que siempre tengas motivos para sonreír 💗<br><br>
+            Este mensaje ahora sí se puede deslizar sin ningún problema 💌✨
         </div>
 
     </div>
@@ -203,13 +246,12 @@ function toggleCard(el){
     }else{
         const paper = el.querySelector(".paper");
 
-        // primero desvanece hoja
         paper.style.opacity = "0";
         paper.style.transform = "scale(0.8)";
 
         setTimeout(()=>{
             el.classList.remove("open");
-            paper.removeAttribute("style"); // reinicia correctamente
+            paper.removeAttribute("style");
             abierta = false;
         },700);
     }

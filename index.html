@@ -74,29 +74,39 @@ animation:mover2 60s linear infinite alternate;
 background:radial-gradient(circle at center,#063b2c,#021a16);
 }
 
-/* 🌫 Neblina cósmica */
+/* 🌫 Neblina cósmica mejorada (azulada y visible) */
 .neblina{
 position:absolute;
-width:150%;
-height:150%;
-background:radial-gradient(circle at 50% 50%, rgba(0,255,200,0.08), transparent 60%);
-animation:neblinaMover 30s ease-in-out infinite alternate;
+width:160%;
+height:160%;
+top:-30%;
+left:-30%;
 pointer-events:none;
+z-index:-2;
+}
+
+.neblina::before,
+.neblina::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 30% 40%, rgba(80,150,255,0.25), transparent 50%),
+radial-gradient(circle at 70% 60%, rgba(120,180,255,0.20), transparent 55%),
+radial-gradient(circle at 50% 50%, rgba(50,120,255,0.18), transparent 60%);
+filter:blur(60px);
+animation:neblinaMover 40s ease-in-out infinite alternate;
+}
+
+.neblina::after{
+animation-duration:60s;
+opacity:0.8;
 }
 
 @keyframes neblinaMover{
 from{transform:translate(-5%, -5%) scale(1);}
-to{transform:translate(5%, 5%) scale(1.1);}
-}
-
-@keyframes mover1{
-from{transform:translate(0,0);}
-to{transform:translate(-50px,-30px);}
-}
-
-@keyframes mover2{
-from{transform:translate(0,0);}
-to{transform:translate(50px,30px);}
+to{transform:translate(5%, 5%) scale(1.15);}
 }
 
 /* ✨ Partículas */
@@ -115,22 +125,30 @@ animation:flotar 10s linear infinite;
 100%{transform:translateY(-10vh);}
 }
 
-/* ⭐ Estrella fugaz */
+/* ⭐ Estrella fugaz realista */
 .estrella{
 position:absolute;
-width:3px;
-height:3px;
+width:2px;
+height:2px;
 background:white;
 border-radius:50%;
-box-shadow:0 0 8px white, 0 0 20px white;
-animation:fugaz 1.5s ease-out forwards;
+box-shadow:0 0 6px white, 0 0 20px rgba(255,255,255,0.8);
+animation:fugazReal 1.5s linear forwards;
 }
 
-@keyframes fugaz{
-0%{opacity:1; transform:translate(0,0);}
-100%{opacity:0; transform:translate(600px,200px);}
+.estrella::after{
+content:"";
+position:absolute;
+top:0;
+left:-150px;
+width:150px;
+height:2px;
+background:linear-gradient(to left,
+rgba(255,255,255,0.9),
+rgba(255,255,255,0.4),
+transparent);
+filter:blur(2px);
 }
-
 /* 💎 Tarjeta */
 .tarjeta{
 position:relative;
@@ -159,10 +177,14 @@ animation:fadeNombre 2s ease forwards;
 animation-delay:2.5s;
 }
 
-@keyframes fadeNombre{
-to{
+@keyframes fugazReal{
+0%{
 opacity:1;
-transform:translateY(0);
+transform:translate(0,0) rotate(25deg);
+}
+100%{
+opacity:0;
+transform:translate(700px,250px) rotate(25deg);
 }
 }
 

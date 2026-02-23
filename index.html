@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños Tarrio 💚</title>
-
+<div class="nombre-container">
+  <h1 class="nombre">
+    Tarrio <span class="corazon">❤</span>
+  </h1>
+</div>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -163,28 +162,82 @@ box-shadow:0 0 80px rgba(0,255,170,0.15);
 transition:0.3s;
 }
 
-/* ✨ Nombre */
-.nombre{
-font-family:'Cormorant Garamond', serif;
-font-size:3.2em;
+/* 🌟 Contenedor */
+.nombre-container{
 text-align:center;
-letter-spacing:5px;
-color:#d8fff5;
-margin-bottom:25px;
-opacity:0;
-transform:translateY(20px);
-animation:fadeNombre 2s ease forwards;
-animation-delay:2.5s;
+margin-bottom:30px;
 }
 
-@keyframes fugazReal{
-0%{
-opacity:1;
-transform:translate(0,0) rotate(25deg);
-}
-100%{
+/* ✨ Nombre épico RGB */
+.nombre{
+font-family:'Cormorant Garamond', serif;
+font-size:3.5em;
+letter-spacing:6px;
+background:linear-gradient(
+90deg,
+#ff0000,
+#ff9900,
+#33ff00,
+#00ffff,
+#0066ff,
+#cc00ff,
+#ff0000
+);
+background-size:400%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:rgbFlow 6s linear infinite,
+fadeInNombre 2.5s ease forwards;
 opacity:0;
-transform:translate(700px,250px) rotate(25deg);
+text-shadow:
+0 0 10px rgba(255,255,255,0.3),
+0 0 20px rgba(0,255,255,0.3),
+0 0 40px rgba(0,255,255,0.2);
+}
+
+/* 🌈 Movimiento RGB */
+@keyframes rgbFlow{
+0%{background-position:0%}
+100%{background-position:400%}
+}
+
+/* 🎬 Aparición suave */
+@keyframes fadeInNombre{
+to{
+opacity:1;
+}
+}
+
+/* ❤️ Corazón brillante */
+.corazon{
+display:inline-block;
+margin-left:10px;
+color:#ff4d6d;
+animation:latido 1.2s infinite,
+corazonGlow 3s linear infinite;
+text-shadow:
+0 0 8px #ff4d6d,
+0 0 20px #ff4d6d,
+0 0 35px #ff4d6d;
+}
+
+/* 💓 Latido */
+@keyframes latido{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.2);}
+}
+
+/* 💖 Glow RGB suave */
+@keyframes corazonGlow{
+0%{filter:hue-rotate(0deg);}
+100%{filter:hue-rotate(360deg);}
+}
+
+/* 📱 Responsive */
+@media (max-width:480px){
+.nombre{
+font-size:2.4em;
+letter-spacing:4px;
 }
 }
 

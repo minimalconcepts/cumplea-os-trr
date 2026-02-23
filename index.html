@@ -169,30 +169,30 @@ margin-bottom:30px;
 }
 
 /* ✨ Nombre épico RGB */
+/* ✨ Nombre verde-cian glow */
 .nombre{
 font-family:'Cormorant Garamond', serif;
 font-size:3.5em;
 letter-spacing:6px;
 background:linear-gradient(
 90deg,
-#ff0000,
-#ff9900,
-#33ff00,
+#00ffcc,
+#00ffaa,
 #00ffff,
-#0066ff,
-#cc00ff,
-#ff0000
+#00ccff,
+#00ffcc
 );
-background-size:400%;
+background-size:300%;
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-animation:rgbFlow 6s linear infinite,
+animation:rgbFlow 5s linear infinite,
 fadeInNombre 2.5s ease forwards;
 opacity:0;
 text-shadow:
-0 0 10px rgba(255,255,255,0.3),
-0 0 20px rgba(0,255,255,0.3),
-0 0 40px rgba(0,255,255,0.2);
+0 0 8px rgba(0,255,200,0.6),
+0 0 20px rgba(0,255,200,0.5),
+0 0 40px rgba(0,255,255,0.4),
+0 0 70px rgba(0,255,255,0.3);
 }
 
 /* 🌈 Movimiento RGB */
@@ -228,9 +228,9 @@ text-shadow:
 }
 
 /* 💖 Glow RGB suave */
-@keyframes corazonGlow{
-0%{filter:hue-rotate(0deg);}
-100%{filter:hue-rotate(360deg);}
+@keyframes rgbFlow{
+0%{background-position:0%}
+100%{background-position:300%}
 }
 
 /* 📱 Responsive */
@@ -271,8 +271,12 @@ letter-spacing:0.5px;
 </div>
 
 <div class="tarjeta" id="tarjeta">
-<div class="nombre">Tarrio</div>
-<div class="mensaje" id="mensaje"></div>
+  <div class="nombre-container">
+    <h1 class="nombre">
+      Tarrio <span class="corazon">❤</span>
+    </h1>
+  </div>
+  <div class="mensaje" id="mensaje"></div>
 </div>
 
 <script>
